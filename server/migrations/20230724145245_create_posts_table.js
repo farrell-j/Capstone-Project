@@ -7,7 +7,7 @@ exports.up = function(knex) {
     table.increments('post_id').primary();
     table.integer('SATCAT_id').unsigned()
     table.foreign('SATCAT_id').references('satellite.SATCAT').onDelete('cascade')
-    table.timestamp('date_posted');
+    table.timestamp('date_posted').defaultTo(knex.fn.now());
     table.string('post_text');
     
   })
