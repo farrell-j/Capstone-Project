@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - "clientvolume:/client"
+    networks:
+      - capstonenetwork
+    depends_on:
+      - database
+    command: npm start
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    volumes:
+      - "servervolume:/server"
+    networks:
+      - capstonenetwork
+    depends_on:
+      - database
+    command: npm start
+  database:
+    image: postgres:latest
+    container_name: database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    networks:
+      - capstonenetwork
+networks:
+  capstonenetwork:
+    driver: bridge
+volumes:
+  clientvolume:
+  servervolume:
