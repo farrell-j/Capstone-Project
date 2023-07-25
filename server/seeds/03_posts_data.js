@@ -55,6 +55,14 @@ exports.seed = async function(knex) {
       post_text: 'NOAA 20, it is a weather satellite managed by the US NOAA. It was launched on November 18th, 2017 from Vandenberg, USA.', 
     },
     {
+      SATCAT_id: 43226, 
+      post_text: 'GOES 17, it is an environmental satellite managed by the US NOAA. It was launched on March 1st, 2018 from Cape Canaveral, USA.', 
+    },
+    {
+      SATCAT_id: 57166, 
+      post_text: 'METEOR M2-3, it is a weather imaging satellite managed by Russia. It was launched on June 27th, 2023 from Vostochny, Russia.', 
+    },
+    {
       SATCAT_id: 48859, 
       post_text: 'Called NAVSTAR 81, it is part of the US Global Positioning System. It was launched on June 17th, 2021. It was launched from Vandenberg, USA.' 
     },
@@ -65,6 +73,10 @@ exports.seed = async function(knex) {
     {
       SATCAT_id: 42939, 
       post_text: 'Called COSMOS 2522(GLONASS-M). it is a part of the GLONASS satellite navigation system operated by Russia. It was launched on September 22nd, 2017 from Plesetsk, Russia.', 
+    },
+    {
+      SATCAT_id: 56564, 
+      post_text: 'BEIDOU-3 G4 it is a part of the Beidou satellite navigation system operated by China. It was launched on May 17th, 2023 from Xichang, China.', 
     },
     ]);
 };

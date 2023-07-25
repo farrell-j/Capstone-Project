@@ -2,9 +2,9 @@
 
 //INTRODUCTION
 A large amount of resources dedicated to satellite tracking throughout the Space Force has created to data overlap, where conflicting information converges. This convergence creates misinformation and adds introduces unnecessary complexity into the reporting process.
-{Name of Project} was created to solve this issue.A
+{Name of Project} was created to solve this issue.
 
-{Name of Project} is a one stop website for Space Force reporters, intel professionals and operators to come together and share the latest updates for Satalite Tracking data. The site specifically focuses on information surrounding new launches to ensure continuity through the branch. The app pulls from external data bases including Space-Track.org as well as CelesTrak.org and relies on interactions between Gaurdian users to make sense of the data and provide nrt satalite updates.
+{Name of Project} is a one stop website for Space Force reporters, intel professionals and operators to come together and share the latest updates for Satellite Tracking data. The site specifically focuses on information surrounding new launches to ensure continuity through the branch. The app pulls from external data bases including Space-Track.org as well as CelesTrak.org and relies on interactions between Gaurdian users to make sense of the data and provide nrt satellite updates.
 
 //INSTALLATION DETAILS
 The application was created via 

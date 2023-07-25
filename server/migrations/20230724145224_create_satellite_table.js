@@ -13,8 +13,7 @@ exports.up = function(knex) {
         table.string('eccentricity');
         table.string('argument_of_perigee')
         table.string('mean_anomaly')
-    })
-  
+    }) 
 };
 
 /**
