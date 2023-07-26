@@ -1,0 +1,106 @@
+.App {
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    /* background-image: url(${login_background}); */
+    background-image: url("https://wallpapers.com/images/hd/giant-stars-4k-space-q03wbnsie2ul47hh.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .auth-form-container, .login-form, .register-form {
+    display: flex;
+    flex-direction: column;
+    background-color: none;
+  }
+  
+  @media screen and (min-width: 600px) {
+    .auth-form-container {
+      padding: 5rem;
+      border: 1px solid white;
+      border-radius: 10px;
+      margin: 0.5rem;
+    }
+  }
+  
+  label {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+  
+  input {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  button {
+    border: none;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #7439db;
+  }
+  
+  .link-btn {
+    background: none;
+    color: white;
+    text-decoration: underline;
+  }
+  
+  #affiliation {
+    margin-bottom: 5%;
+  }
+
+  .alert-danger {
+    display: none;
+    position:absolute;
+    width: 100%;
+    top: 0px;
+    text-align: left;
+  }
+
+  .alert-warning {
+    display: none;
+    position:absolute;
+    width: 100%;
+    top: 0px;
+    text-align: left;
+  }
+  
+  .alert-success {
+    display: none;
+    position:absolute;
+    width: 100%;
+    top: 0px;
+    text-align: left;
+  }
+  
+  .fade {
+    transition: opacity .50s linear;
+  }
+
+  h1 {
+    color:white;
+    margin: 10px;
+  }
+
+  .setting-label {
+    color: white;
+    margin: 10px;
+  }
+
+  #account-setting-message {
+    color:white;
+    margin: 30px;
+    font-size: 30px;
+  }
+
+  .Link-1{
+    color: white;
+  }

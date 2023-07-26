@@ -5,7 +5,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('satellite', table => {
         table.integer('SATCAT').primary();
-        table.bigint('created_by_id').unsigned();
+        table.string('created_by_id').unsigned();
         table.foreign('created_by_id').references('user_accounts.DoD_id').onDelete('CASCADE');
         table.string('launch_date');
         table.string('inclination');
@@ -13,6 +13,7 @@ exports.up = function(knex) {
         table.string('eccentricity');
         table.string('argument_of_perigee')
         table.string('mean_anomaly')
+        table.string('image');
     }) 
 };
 

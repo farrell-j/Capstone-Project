@@ -1,41 +1,61 @@
 import './App.css';
-import React, {useEffect} from 'react';
-import './LoginPage.js';
+import React, {useState} from 'react';
+import LoginPage from './components/LoginPage/LoginPage';
+import Navbar from './components/NavBar/NavBar.js';
+import {Routes, Route} from 'react-router-dom';
+import Register from './components/Register/Register';
+import SideSearch from './components/SideSearch/SideSearch';
+// import login_background from '../images/STARS_background_for_homepage.svg';
 
+
+export const TokenContext = React.createContext()
 function App() {
-
-  useEffect(() => {
-    fetch('http://localhost:8080/user/1234567890', {headers: {"authorization": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJEb0RfaWQiOiI0MTE0NTY3ODkwIiwiZmlyc3RuYW1lIjoiSm9uZXMiLCJsYXN0bmFtZSI6IlRvbSIsImVtYWlsIjoiam9uLmFyYnVja2xlQHNwYWNlZm9yY2UubWlsIiwib3JnYW5pemF0aW9uIjoiU1BBQ0VDT00iLCJwYXNzd29yZCI6IiQyYiQxMCRzcG0wVU9xZFBEaGhqYWxRcHlxVWtPSGI0QkxDaC9MTTREUHZJWWJNOG9SalhVOTRBSDAyTyIsIm1vZGVyYXRvciI6ZmFsc2UsImlhdCI6MTY5MDMwMzU5MX0.attL8oL0SvnCrcV3Tgt0lHOAnZghiGUY_0LeHMoRZTw"}, credentials: 'include'})
-      .then(res=>res.json())
-      .then(data => console.log(data))
-  }, [])
-
+  const [token, setToken] = useState([]);
+  const [userLoggedIn, setUserLoggedIn] = useState(false)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-      <input id="uname" type="text"/>
-        <input id="pword" type="text"/>
-        <button onClick={()=>{
-          const loginObj = {
-            "DoD_id": document.getElementById('uname').value,
-            "password": document.getElementById('pword').value
-          }
-          const init = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(loginObj)
-          }
-          fetch('http://localhost:8080/login', init)
-            .then(res => res.json())
-            .then(data => {
-              console.log(data);
-              fetch('http://localhost:8080/user/1234567890', {headers: {"authorization": `bearer ${data.accessToken}`}, credentials: 'include'})
-              .then(res=>res.json())
-              .then(data=>console.log(data))})
-        }}>submit</button>
-      </header>
-    </div>
+    <TokenContext.Provider value={{token, setToken, userLoggedIn, setUserLoggedIn}}>
+        <header className="App-header">
+          <Navbar/>
+        </header>
+        <div className='App'>
+          <Routes>
+            <Route path='/' element={<LoginPage/>}/>
+            <Route path='/login' element={<LoginPage/>}/>
+            <Route path='/register' element={<Register/>}/>
+            <Route path='/test' element={<SideSearch/>}/>
+          </Routes>
+        </div>
+    </TokenContext.Provider>
   )
 }
 
 export default App;
+
+
+
+/* <input id="uname" type="text"/>
+<input id="pword" type="text"/>
+<button onClick={()=>{
+  const loginObj = {
+    "DoD_id": document.getElementById('uname').value,
+    "password": document.getElementById('pword').value
+  }
+  const init = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(loginObj)
+  }
+  fetch('http://localhost:8080/login', init)
+  .then(res => res.json())
+  .then(data => {
+              console.log(data);
+              fetch('http://localhost:8080/user/1234567890', {headers: {"authorization": `bearer ${data.accessToken}`}, credentials: 'include'})
+              .then(res=>res.json())
+              .then(data=>console.log(data))})
+            }}>submit</button> */
+            // useEffect(() => {
+            //   fetch('http://localhost:8080/user/1234567890', {headers: {"authorization": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJEb0RfaWQiOiI0MTE0NTY3ODkwIiwiZmlyc3RuYW1lIjoiSm9uZXMiLCJsYXN0bmFtZSI6IlRvbSIsImVtYWlsIjoiam9uLmFyYnVja2xlQHNwYWNlZm9yY2UubWlsIiwib3JnYW5pemF0aW9uIjoiU1BBQ0VDT00iLCJwYXNzd29yZCI6IiQyYiQxMCRzcG0wVU9xZFBEaGhqYWxRcHlxVWtPSGI0QkxDaC9MTTREUHZJWWJNOG9SalhVOTRBSDAyTyIsIm1vZGVyYXRvciI6ZmFsc2UsImlhdCI6MTY5MDMwMzU5MX0.attL8oL0SvnCrcV3Tgt0lHOAnZghiGUY_0LeHMoRZTw"}, credentials: 'include'})
+            //     .then(res=>res.json())
+            //     .then(data => console.log(data))
+            // }, [])}

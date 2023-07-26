@@ -22,7 +22,8 @@ const corsOptions = {
   };
 
 app.use(express.json());
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
@@ -176,8 +177,6 @@ app.get('/posts', (req,res) => {
 // Create new user (tested good)
 app.post('/register', function(req, res) {
     const newUser = req.body;
-    newUser.DoD_id = BigInt(newUser.DoD_id)
-    // newUser.uuid = uuid.v4();
     bcrypt.hash(newUser.password, 10)
         .then(data => newUser.password = data)
         .then(async data => {
@@ -185,8 +184,7 @@ app.post('/register', function(req, res) {
                 .insert(newUser)
                 .returning('*')
             .then(data => {
-                newUser.password = '';                                
-                newUser.DoD_id = newUser.DoD_id.toString();
+                newUser.password = '';
                 res.status(200).json(newUser)})
             .catch(err => {
                 res.status(500).json({
@@ -211,11 +209,9 @@ app.post('/posts/:SATCAT_id', (req,res) => {
 app.post('/satellite', (req,res) => {
     //satellite info should include { SATCAT, created_by_id, launch_date, + orbital params }
   const satellite = req.body
-  satellite.created_by_id = BigInt(satellite.created_by_id)
     knex('satellite')
         .insert(satellite)
         .then(data => {
-            satellite.created_by_id = satellite.created_by_id.toString();
             res.status(200).json('satellite posted.')})
         .catch(err => {res.status(500).json({message: 'An error occurred while posting satellite', error:err})})
 })      
@@ -312,6 +308,19 @@ app.delete('/post/:id', (req, res) => {
         })
 })
 
+
+
+//SPECIAL PROXY END POINT TO FETCH DATA FROM EXTERNAL API
+app.get('/proxy-tle/:id', async (req, res) => {
+    let id = req.params.id
+    try {
+      const response = await fetch(`https://tle.ivanstanojevic.me/api/tle/${id}`);
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching data from the external API' });
+    }
+});
 
 
 app.listen(port, () => console.log(`You are now listening live at http://localhost:${port}!`))
