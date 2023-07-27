@@ -65,7 +65,8 @@ app.post('/login', async (req, res) => {
 
     // const hopeful = jwt.sign({...user, jwt_id},`${process.env.ACCESS_TOKEN_SECRET}${user.DoD_id}`)
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-    res.cookie("token",accessToken,options).json({ accessToken: accessToken })
+    user["accessToken"] = accessToken;
+    res.status(200).json(user)
 })
 
 function authenticateToken(req, res, next) {
@@ -169,6 +170,26 @@ app.get('/posts', (req,res) => {
         .select('*')
         .then(data => res.status(200).json(data))
 })
+
+app.get('/search/:search', (req,res) => {
+    let searchString = req.params.search;
+  
+    if(typeof searchString !== 'string') {
+      searchString.toString();
+    }
+    knex('satellite')
+      .select('*')
+      .whereILike('SATCAT', `%${searchString}%`)
+      .orWhere('created_by_id', 'ilike', `%${searchString}%`)
+      .orWhere('launch_date', 'ilike', `%${searchString}%`)
+      .then(data => res.status(200).send(data));
+})
+
+app.get('/search/', (req,res) => {
+    knex('satellite')
+        .select('*')
+        .then(data => res.status(200).send(data));
+  })
 
 // 
 //  POST REQUESTS BELOW

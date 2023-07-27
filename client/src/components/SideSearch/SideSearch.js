@@ -1,45 +1,48 @@
 import React, {useEffect, useState} from "react"
 import './SideSearch.css'
+import styled from 'styled-components'
 
 const SideSearch = () => {
-    const [searchTerm, setSearchTerm]  = useState(false);
-    const [satlist, setSatlist] = useState([])
-    const [displayList, setDisplayList] = useState([])
+    const [searchTerm, setSearchTerm]  = useState('');
+    const [satlist, setSatlist] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/satellites')
-            .then(res => res.json())
-            .then(data => setSatlist(data))
-    }, [])
-
-    useEffect(() => {
-        if(satlist.length > 0) {
-            if(searchTerm.length > 0) {
-                setDisplayList(satlist.filter(satellite => {
-                    Object.values(satellite).filter(value => value.includes(searchTerm))
-                }))
-            } else {
-                setDisplayList(satlist)
-            }
+        if (searchTerm === '') {
+            fetch('http://localhost:8080/search')
+                .then(res => res.json())
+                .then(data => setSatlist(data))
+        } else {
+            fetch(`http://localhost:8080/search/${searchTerm}`)
+                .then(res => res.json())
+                .then(data => setSatlist(data))
         }
-    }, [searchTerm, satlist])
+    }, [searchTerm])
 
-    if(displayList.length > 0) {
+    if(satlist.length > 0) {
         return (
             <div id="sideSearchContainer">
                 <input id="sidesearchbar" type="text" placeholder="Search..." onChange={()=>{
                     setSearchTerm(document.getElementById('sidesearchbar').value)
                 }}/>
                 <div id="displaySearchContainer">
-
+                    {satlist.map(satellite => {
+                        return <ItemContainer>
+                            <p>{satellite.SATCAT}</p>
+                            <p>{satellite.created_by_id}</p>
+                            <p>{satellite.launch_date}</p>
+                        </ItemContainer>
+                    })}
                 </div>
             </div>
         )
-    } else {
+    } else if (satlist.length === 0) {
         return (
             <div id="sideSearchContainer">
+                <input id="sidesearchbar" type="text" placeholder="Search..." onChange={()=>{
+                    setSearchTerm(document.getElementById('sidesearchbar').value)
+                }}/>
                 <div id="filterContainer">
-testtest
+                    No results found.
                 </div>
             </div>
         )
@@ -47,3 +50,7 @@ testtest
 }
 
 export default SideSearch
+
+const ItemContainer = styled.div`
+outline-color: #C54B87;
+`

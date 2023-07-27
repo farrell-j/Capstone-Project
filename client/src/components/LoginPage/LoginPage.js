@@ -1,9 +1,10 @@
 // import Register  from "../Register/Register.js";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {useNavigate, Link } from "react-router-dom";
 import './Login.css';
 import LoginForm from './LoginForm';
 import Register from '../Register/Register.js';
+import { TokenContext } from "../../App";
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -11,6 +12,7 @@ export const LoginPage =  (props) => {
     const [username, setUsername] = useState ('');
     const [pass, setPass] = useState('');
     const navigate = useNavigate();
+    const {setToken, setUserLoggedIn} = React.useContext(TokenContext)
 
     const handleSubmit = async (e) => {
 
@@ -24,18 +26,18 @@ export const LoginPage =  (props) => {
                     'Content-Type': 'application/json',
                 },
             body: JSON.stringify({
-                // "DoD_id": BigInt(username),
+                "DoD_id": username,
                 "password": pass
             }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            if (data.success) {
-                navigate('/resources');
-                console.log(data)
-                sessionStorage.setItem('userI', JSON.stringify(data.user_id)); 
-                sessionStorage.setItem('username', JSON.stringify(data.username));
+            if (data.accessToken) {
+                // navigate('/');
+                setToken(data);
+                setUserLoggedIn(true);
+                navigate('/homepage')
             } else {
                 alertFunction('Sign in failed, wrong Login information input')
                 console.log('FAILED!!');
@@ -47,7 +49,7 @@ export const LoginPage =  (props) => {
     } catch (error) {
       console.log('error occured during login:', error);
     }
-   };
+    };
 
    return (
     <>
@@ -58,14 +60,14 @@ export const LoginPage =  (props) => {
             <h1> One Track Satellite</h1>
             <h2>Space Monkeys Login Here!</h2>
             <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="username">Username</label>
+                <label htmlFor="DoD_id">DoD ID</label>
                 <input 
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    type="username"
-                    placeholder="Username"
-                    id="username"
-                    name="username"
+                    type="DoD ID"
+                    placeholder="DoD ID"
+                    id="DoD ID"
+                    name="DoD ID"
                     />
                     <label htmlFor="password">Password</label>
                     <input 
@@ -76,18 +78,7 @@ export const LoginPage =  (props) => {
                         id="password"
                         name="password"
                     />
-                    <button onClick={()=>{
-                        fetch('http://localhost:8080/login', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                "DoD_id": parseInt(username),
-                                "password": pass
-                            }),
-                        }).then(res=>console.log(res))
-                    }}>Login</button>
+                    <button type="submit">Login</button>
                     </form>
                     <Link to="/Register" className="Link-1">Need to register an account? Click here!</Link>
                     {/* <button className="Link-btn" onClick={() => props.onFormSwitch.toggleForm('Register')}>

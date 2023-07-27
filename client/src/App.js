@@ -3,8 +3,10 @@ import React, {useState} from 'react';
 import LoginPage from './components/LoginPage/LoginPage';
 import Navbar from './components/NavBar/NavBar.js';
 import {Routes, Route} from 'react-router-dom';
-import Register from './components/Register/Register';
-import SideSearch from './components/SideSearch/SideSearch';
+import Register from './components/Register/Register.js';
+import SideSearch from './components/SideSearch/SideSearch.js';
+import Fetch_TLE from './components/Fetch_TLE/Fetch_TLE.js'
+import HomePage from './components/Homepage/Homepage.js'
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -24,6 +26,8 @@ function App() {
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/register' element={<Register/>}/>
             <Route path='/test' element={<SideSearch/>}/>
+            <Route path='/TLE' element={<Fetch_TLE />}/>
+            <Route path='/homepage' element={<HomePage />}/>
           </Routes>
         </div>
     </TokenContext.Provider>
