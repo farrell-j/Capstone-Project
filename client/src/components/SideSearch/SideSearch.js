@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react"
 import './SideSearch.css'
 import styled from 'styled-components'
+import { useNavigate} from "react-router-dom"
 
 const SideSearch = () => {
     const [searchTerm, setSearchTerm]  = useState('');
     const [satlist, setSatlist] = useState([]);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (searchTerm === '') {
@@ -26,7 +29,9 @@ const SideSearch = () => {
                 }}/>
                 <div id="displaySearchContainer">
                     {satlist.map(satellite => {
-                        return <ItemContainer>
+                        return <ItemContainer onClick={()=>{
+                            navigate(`/satellite/${satellite.SATCAT}`)
+                        }}>
                             <p>SATCAT: {satellite.SATCAT}</p>
                             <p>Created By: {satellite.created_by_id}</p>
                             <p>Launch Year: {satellite.launch_date}</p>

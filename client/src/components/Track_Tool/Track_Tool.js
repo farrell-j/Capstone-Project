@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import './Track_Tool.css'
+import monkey_img from '../../images/Space_Monkey.svg'
+// import SCC_Search from './SCC_Search'
 
-function Track_Tool() {
+const Track_Tool = () => {
   const [data, setData] = useState([]);
   const [satelliteIds, setSatelliteIds] = useState('');
 
@@ -28,31 +31,51 @@ function Track_Tool() {
   };
 
   return (
-    <div className="fetch">
-      <input type="text" value={satelliteIds} onChange={(e) => setSatelliteIds(e.target.value)} />
-      <button onClick={handleSearch}>Search SCC</button>
-      <p>Testing</p>
-      <img
-        id="img"
-        src="https://static.displate.com/280x392/displate/2023-01-05/7a928c1eedccc3617b8ca1b9b6f08799_c42bacf826d9d27b6e3dd93afbe2aaec.jpg"
-        alt="cat"
-        className="hover-effect"
-      />
+    <div className="track_tool_body">
 
-      {/* DISPLAY 2 LINE: */}
+    {/* <img
+        id='monkey_img'
+        src= {monkey_img}
+        alt="monkey_img"
+        // className="hover-effect"
+    /> */}
+
+    <div className='seach_box'>
+
+      <input type="text" value={satelliteIds} onChange={(e) => setSatelliteIds(e.target.value)} /> <button onClick={handleSearch}>Search SCC</button>
+      
+    </div>
+
+        {/* <SCC_Search /> */}
+
       {data.length > 0 && (
-        <div>
-          <h2>TwoLine Elsets</h2>
-          <ul>
-            {data.map((response, index) => (
-              <li key={index}>
-                <p> {response.satelliteId} </p>
-                <p> {response.line1} </p>
-                <p> {response.line2} </p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className="Track_Tool_return">
+
+            <div id='SCC_return'>
+                <h2>Twoline Elsets with SCC</h2>
+                <ul>
+                {data.map((response, index) => (
+                    <li key={index}>
+                    <p> {response.satelliteId}</p>
+                    <p> {response.line1}</p>
+                    <p> {response.line2}</p>
+                    </li>
+                ))}
+                </ul>
+            </div>
+
+            <div id='NO_SCC_return'>
+                <h2>Without</h2>
+                <ul>
+                {data.map((response, index) => (
+                    <li key={index}>
+                    <p> {response.line1}</p>
+                    <p> {response.line2}</p>
+                 </li>
+                ))}
+                </ul>
+            </div>
+    </div>
       )}
     </div>
   );
@@ -61,7 +84,18 @@ function Track_Tool() {
 export default Track_Tool;
 
 
-//OLD IDEAS
+
+
+
+
+
+
+
+
+
+
+
+{/* //OLD IDEAS
 
 // import React, { useEffect, useState } from 'react';
 
@@ -95,7 +129,49 @@ export default Track_Tool;
 //   );
 // }
 
-// export default Track_Tool;
+// export default Track_Tool; */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

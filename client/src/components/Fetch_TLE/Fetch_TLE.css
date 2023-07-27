@@ -1,0 +1,49 @@
+.fetch_tle_body {
+    /* background-color: black; */
+    /* background-color: blue;  */
+}
+#monkey_img {
+    border-radius: 10%;
+    padding-top: 0%;
+    margin-top: 0%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    /* background-color: blue; */
+}
+.button {
+    margin-top: 5%;
+    /* background-color: blueviolet; */
+}
+#searchSATCATs {
+    color: white;
+    margin-right: 1%;
+    border-radius: 10%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: black;
+    /* background-color: blue; */
+}
+#submit_button {
+    color: white;
+    border-radius: 10%;
+    background-color: black;
+    /* background-color: blueviolet; */
+
+}
+.fetch_tle_return {
+    background-color: black;
+    /* background-color: blueviolet; */
+}
+
+#SCC_return {
+    /* background-color: black; */
+    /* background-color: blue; */
+
+}
+#NO_SCC_return {
+    /* background-color: black; */
+    /* background-color: blue; */    
+}
+#NO_SCC_Line_return {
+    padding-bottom: 5%;
+    background-color: black;
+    /* background-color: blue;    */
+}

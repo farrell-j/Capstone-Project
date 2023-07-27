@@ -8,6 +8,8 @@ import SideSearch from './components/SideSearch/SideSearch.js';
 import Fetch_TLE from './components/Fetch_TLE/Fetch_TLE.js'
 import HomePage from './components/Homepage/Homepage.js'
 import Track_Tool from './components/Track_Tool/Track_Tool';
+import SatelliteDetails from './components/SatelliteDetails/SatelliteDetails';
+import Trending from './components/Trending/Trending';
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -26,10 +28,11 @@ function App() {
             <Route path='/' element={<LoginPage/>}/>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route path='/test' element={<SideSearch/>}/>
+            <Route path='/test' element={<Trending/>}/>
             <Route path='/TLE' element={<Fetch_TLE />}/>
             <Route path='/track' element={<Track_Tool />} />
             <Route path='/homepage/:DoD_id' element={<HomePage />}/>
+            <Route path='/satellite/:SATCAT' element={<SatelliteDetails/>} />
           </Routes>
         </div>
     </TokenContext.Provider>
