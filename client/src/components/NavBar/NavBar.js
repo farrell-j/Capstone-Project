@@ -29,7 +29,7 @@ const Navbar = () => {
                 }}>Add New Item</button></> : <></>}
             </div>
             {userIn && token.length > 0 ? <span id='username'>Welcome, {token.username.toUpperCase()}!</span> : <></>}
-            <Link id="appTitle" to= '/' style={{ textDecoration: 'none' }}>One Track Satellite</Link>
+            <Link id="appTitle" to= {`/homepage/${token.DoD_id}`} style={{ textDecoration: 'none' }}>One Track Satellite</Link>
         </div>
     )
 }

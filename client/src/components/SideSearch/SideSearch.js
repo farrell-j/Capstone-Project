@@ -27,9 +27,9 @@ const SideSearch = () => {
                 <div id="displaySearchContainer">
                     {satlist.map(satellite => {
                         return <ItemContainer>
-                            <p>{satellite.SATCAT}</p>
-                            <p>{satellite.created_by_id}</p>
-                            <p>{satellite.launch_date}</p>
+                            <p>SATCAT: {satellite.SATCAT}</p>
+                            <p>Created By: {satellite.created_by_id}</p>
+                            <p>Launch Year: {satellite.launch_date}</p>
                         </ItemContainer>
                     })}
                 </div>
@@ -51,6 +51,8 @@ const SideSearch = () => {
 
 export default SideSearch
 
+
 const ItemContainer = styled.div`
-outline-color: #C54B87;
+outline: 2px solid #C54B87;
+
 `

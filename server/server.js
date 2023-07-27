@@ -330,18 +330,42 @@ app.delete('/post/:id', (req, res) => {
 })
 
 
-
 //SPECIAL PROXY END POINT TO FETCH DATA FROM EXTERNAL API
-app.get('/proxy-tle/:id', async (req, res) => {
-    let id = req.params.id
-    try {
-      const response = await fetch(`https://tle.ivanstanojevic.me/api/tle/${id}`);
-      const data = await response.json();
-      res.json(data);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching data from the external API' });
+// app.get('/proxy-tle/:id', async (req, res) => {
+//     let id = req.params.id
+//     try {
+//       const response = await fetch(`https://tle.ivanstanojevic.me/api/tle/${id}`);
+//       const data = await response.json();
+//       res.json(data);
+//     } catch (error) {
+//       res.status(500).json({ message: 'Error fetching data from the external API' });
+//     }
+// });
+
+// Track_Tool SPECIAL PROXY END POINT TO FETCH DATA FROM EXTERNAL API 
+//_UPDATED_ To allow for multiple seraches seperated by comma 
+app.get('/proxy-tle', async (req, res) => {
+    const satelliteIds = req.query.ids;
+    
+    if (!satelliteIds) {
+      return res.status(400).json({ message: 'Please provide satellite "ids" in the your query' });
     }
-});
+  
+    const idsArray = satelliteIds.split(',').map((id) => id.trim());
+  
+    try {
+      const responses = await Promise.all(
+        idsArray.map(async (id) => {
+          const response = await fetch(`https://tle.ivanstanojevic.me/api/tle/${id}`);
+          return response.json();
+        })
+      );
+  
+      res.json(responses);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching from NASA API' });
+    }
+  });
 
 
 app.listen(port, () => console.log(`You are now listening live at http://localhost:${port}!`))

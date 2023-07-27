@@ -37,7 +37,7 @@ export const LoginPage =  (props) => {
                 // navigate('/');
                 setToken(data);
                 setUserLoggedIn(true);
-                navigate('/homepage')
+                navigate(`/homepage/${data.DoD_id}`)
             } else {
                 alertFunction('Sign in failed, wrong Login information input')
                 console.log('FAILED!!');
