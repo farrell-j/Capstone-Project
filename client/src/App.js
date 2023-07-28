@@ -11,6 +11,7 @@ import Track_Tool from './components/Track_Tool/Track_Tool';
 import SatelliteDetails from './components/SatelliteDetails/SatelliteDetails';
 import Trending from './components/Trending/Trending';
 import AddSat from './components/AddSat/AddSat'
+// import Dancing from './components/Dancing_Monkey/Dancing.js';
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -25,6 +26,7 @@ function App() {
           <Navbar/>
         </header>
         <div className='App'>
+          {/* <Dancing /> */}
           <Routes>
             <Route path='/' element={<LoginPage/>}/>
             <Route path='/login' element={<LoginPage/>}/>

@@ -229,6 +229,7 @@ app.post('/posts/:SATCAT_id', (req,res) => {
 //post a new satellite (tested good)
 app.post('/satellite', (req,res) => {
     //satellite info should include { SATCAT, created_by_id, launch_date, + orbital params }
+    console.log(req.body)
   const satellite = req.body
     knex('satellite')
         .insert(satellite)

@@ -1,0 +1,13 @@
+.dancing_monkey_container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+    /* background-color: rgba(255, 255, 255, 0.5);  */
+    /* z-index: -1;  */
+  }
+  
+  #dancing_monkey_img {
+    height: 20%;
+    width: 20%;
+  }

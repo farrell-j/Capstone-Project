@@ -1,51 +1,66 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
+import './Trending.css'
 
-const Trending = () => {
-    const [satlist, setSatlist] = useState([])
-    const [postlist, setPostlist] = useState([])
-
-    useEffect(()=> {
-        fetch('http://localhost:8080/satellites')
-            .then(res => res.json())
-            .then(data => setSatlist(data))
-    }, [])
+const Trending = ({satlist}) => {
+    const didMount = useRef(false);
+    const [curIndex, setCurIndex] = useState(0);
+    const [activeEvent, setActiveEvent] = useState([]);
+    
+    useEffect(() => {
+        satlist.sort((a, b) => b.up_votes - a.up_votes)
+        if (!didMount.current) {
+            didMount.current = true;
+        }
+    }, [satlist])
 
     useEffect(() => {
-        if(satlist.length > 0) {
-            for (let satellite of satlist) {
-                let temp = 0;
-                let tempArr = [];
-                fetch(`http://localhost:8080/posts/${satellite.SATCAT}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        tempArr.push(data)
-                        for (let t of tempArr[0]) {
-                            temp += t.up_votes;
-                        }
-                        postlist.push({"satellite": satellite, "up_votes": temp})
-                    })                
+        //Implementing the setInterval method
+        const interval = setInterval(() => {
+            if(curIndex < 4) {
+                setActiveEvent(satlist[curIndex]);
+                setCurIndex(curIndex + 1);
+            } else {
+                setActiveEvent(satlist[curIndex]);
+                setCurIndex(0);
             }
-            setPostlist(postlist)
-        }
-        if(postlist.length > 5) {
-            console.log('hello?')
-            postlist.sort((a, b) => b.up_votes - a.up_votes)
-            setPostlist(postlist.slice(0, 5));
-        }
-    }, [satlist, postlist])
+        }, 5000);
+        //Clearing the interval
+        return () => clearInterval(interval);
+    }, [satlist, curIndex]);
 
-    return (
-        <div>
-            {postlist.map(post => {
-                return <div>
-                    <p>SATCAT: {post.SATCAT_id}</p>
-                    <p>Post: {}</p>
-                    <button></button>
-                    <button></button>
-                </div>
-            })}
-        </div>
-    )
+    if (activeEvent.SATCAT) {
+        return (
+            <div key={activeEvent.SATCAT} id="trendCon" onClick={()=>{}}>
+                <button onClick={()=>{
+                    if(curIndex > 0) {
+                        setActiveEvent(satlist[curIndex - 1]);
+                        setCurIndex(curIndex - 1)
+                    } else {
+                        setCurIndex(4)
+                    }
+                }}>Previous</button>
+                    <div id='satItem'>
+                        <p>SATCAT: {activeEvent.SATCAT}</p>
+                        <p>Launch Date: {activeEvent.launch_date}</p>
+                        <p>Up Votes: {activeEvent.up_votes}</p>
+                    </div>
+                <button onClick={()=>{
+                    if(curIndex < 4) {
+                        setActiveEvent(satlist[curIndex + 1]);
+                        setCurIndex(curIndex + 1)
+                    } else {
+                        setCurIndex(0)
+                    }
+                }}>Next</button>
+            </div>
+        )
+    } else {
+        return (
+            <div id="trendCon">
+                <h1>Satellite Loading...</h1>
+            </div>
+        )
+    }
 }
 
 export default Trending

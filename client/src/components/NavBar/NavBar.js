@@ -35,8 +35,14 @@ const Navbar = () => {
                 }}>View All Inventory</button>|<button className='navButton' onClick={()=>{
                     navigate('/newitem')
                 }}>Add New Item</button></> : <></>}
-                    <img className='monkey' src={ Space_Monkey } alt="monkey" height={60} />
+                
             </div>
+            <div className='monkey_container'>
+                <Link to="/TLE">
+                    <img className='monkey hover-effect' src={ Space_Monkey } alt="monkey" height={60}/>
+                </Link>
+            </div>
+
             {userIn && token.length > 0 ? <span id='username'>Welcome, {token.username.toUpperCase()}!</span> : <></>}
             <Link id="appTitle" to= {`/homepage/${token.DoD_id}`} style={{ textDecoration: 'none' }}>One Track Satellite</Link>
         </div>
