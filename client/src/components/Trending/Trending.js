@@ -17,20 +17,22 @@ const Trending = () => {
                 let tempArr = [];
                 fetch(`http://localhost:8080/posts/${satellite.SATCAT}`)
                     .then(res => res.json())
-                    .then(data => tempArr = data)
-                setPostlist([...postlist, {"satellite": satellite, }])
-                console.log(postlist)
+                    .then(data => {
+                        tempArr.push(data)
+                        for (let t of tempArr[0]) {
+                            temp += t.up_votes;
+                        }
+                        postlist.push({"satellite": satellite, "up_votes": temp})
+                    })                
             }
+            setPostlist(postlist)
         }
-    }, [satlist])
-
-    useEffect(() => {
-        postlist.sort((a, b) => b.up_votes - a.up_votes)
-    }, [postlist])
-
-    if(postlist.length > 5) {
-        setPostlist(postlist.slice(0, 5));
-    }
+        if(postlist.length > 5) {
+            console.log('hello?')
+            postlist.sort((a, b) => b.up_votes - a.up_votes)
+            setPostlist(postlist.slice(0, 5));
+        }
+    }, [satlist, postlist])
 
     return (
         <div>

@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react'
 import './NavBar.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { TokenContext } from '../../App.js'
-import Space_Monkey from '../../images/Space_Monkey.svg';
+import Space_Monkey from '../../images/Space_Monkey_No_Background.svg';
 
 
 

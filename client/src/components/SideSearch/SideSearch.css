@@ -1,4 +1,54 @@
 #sideSearchContainer {
     border-style: solid;
-    background-color: dimgray;
+    border-color: #D1D4C9;
+    background-color: #29435C;
+    margin-top: -8rem;
+    width: 50rem;
+    height: 40rem;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+Body {
+    overflow: hidden;
+}
+
+#displaySearchContainer {
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+    padding-right: 1rem; /* Increase/decrease this value for cross-browser compatibility */
+    box-sizing: content-box; /* So the width will be 100% + 17px */
+}
+
+#sidesearchbar {
+    width: 85%;
+    height: 0.25rem;
+    outline: #D1D4C9;
+    outline-style: solid;
+    margin-top: 1rem;
+    color: #D1D4C9;
+    background-color: #29435C;
+}
+
+#sidesearchbar::placeholder {
+    color: #D1D4C9;
+}
+
+.satCon{
+    border-style: solid;
+    border-radius: 1rem;
+    border-color: #D1D4C9;
+    color: #D1D4C9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 1rem;
+    margin-left: 2rem;
+}
+
+.satCon:hover {
+    color: #556E53;
+    border-color: #556E53;
+    cursor: pointer;
 }

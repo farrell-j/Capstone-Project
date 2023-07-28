@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import monkey_img from '../../images/Space_Monkey.svg'
+import search_monkey_img from '../../images/Search_Monkey.svg'
+import monkey_no_background_img from '../../images/Space_Monkey_No_Background.svg'
 import './Fetch_TLE.css'
 
 function Fetch_TLE() {
@@ -26,16 +27,23 @@ function Fetch_TLE() {
     <body className="fetch_tle_body">
 
       <img
+        id='search_monkey_img'
+        src= {search_monkey_img}
+        alt="search_monkey_img"
+        className="hover-effect"
+      />
+
+      <img
         id='monkey_img'
-        src= {monkey_img}
+        src= {monkey_no_background_img}
         alt="monkey_img"
-        // className="hover-effect"
+        className="hover-effect"
       />
 
       <div className='button'>
 
         <input type="text" id="searchSATCATs"/> 
-        <button id='submit_button' onClick={submitSearch}>Search</button>
+        <button id='submit_button' onClick={submitSearch}>Search Monkey</button>
 
       </div>
 
@@ -45,7 +53,7 @@ function Fetch_TLE() {
 
         <div id='SCC_return'>
 
-        <h2>Twoline Elsets with SCC</h2>
+        <h2>Twoline Elsets - SCC</h2>
 
           {data.map((item) => 
 
@@ -61,7 +69,7 @@ function Fetch_TLE() {
 
         <div id='NO_SCC_return'>
 
-        <h2>NO SCC</h2>
+        <h2>Twoline Elsets - No SCC</h2>
 
           {data.map((item) => 
 
@@ -76,7 +84,7 @@ function Fetch_TLE() {
 
         <div id='NO_SCC_Line_return'>
 
-        <h2>NO Line Number</h2>
+        <h2>Twoline Elsets - No Line Number</h2>
 
           {data.map((item) => 
 

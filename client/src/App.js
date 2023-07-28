@@ -10,6 +10,7 @@ import HomePage from './components/Homepage/Homepage.js'
 import Track_Tool from './components/Track_Tool/Track_Tool';
 import SatelliteDetails from './components/SatelliteDetails/SatelliteDetails';
 import Trending from './components/Trending/Trending';
+import AddSat from './components/AddSat/AddSat'
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -33,6 +34,7 @@ function App() {
             <Route path='/track' element={<Track_Tool />} />
             <Route path='/homepage/:DoD_id' element={<HomePage />}/>
             <Route path='/satellite/:SATCAT' element={<SatelliteDetails/>} />
+            <Route path='/addsat' element={<AddSat/>} />
           </Routes>
         </div>
     </TokenContext.Provider>
