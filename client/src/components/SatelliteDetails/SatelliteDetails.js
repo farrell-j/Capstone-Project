@@ -66,6 +66,20 @@ function SatelliteDetails () {
         });
     }
 
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        const options = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          hour12: false, 
+        };
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+      };
+
 
     if(isLoading) {
         return <div>Loading...</div>
@@ -95,7 +109,7 @@ function SatelliteDetails () {
                 <Post>  
                     <PostDetails>
                         <p>By: {post.firstname} {post.lastname}</p> 
-                        <p>Date posted: {post.date_posted}</p>
+                        <p>Date posted: {formatDateTime(post.date_posted)}</p>
                     </PostDetails>
                     <PostText><p>{post.post_text}</p></PostText>
                     <PostVotes>
@@ -114,11 +128,16 @@ export default SatelliteDetails;
 const PageContainer = styled.div`
 display: flex;
 flex-direction: column;
+background-color: #29435C;
+padding: 2em;
+border: 2px solid #D1D4C9;
+border-radius: 10px;
 `
 
 const SatelliteInfo = styled.div`
 display: flex;
 flex-direction: row;
+justify-content: space-around;
 
 `
 
@@ -131,6 +150,10 @@ const SpecsContainer = styled.div`
 
 `
 const SatellitePosts = styled.div`
+background-color: #556E53;
+padding: 1em;
+border: 2px solid #D1D4C9;
+border-radius: 10px;
 
 `
 

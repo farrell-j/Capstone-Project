@@ -107,7 +107,7 @@ exports.seed = async function(knex) {
     {
       SATCAT_id: '48859', 
       post_text: 'It is part of the US Global Positioning System. It was launched on June 17th, 2021. It was launched from Vandenberg, USA.' , 
-      post_author: '',
+      post_author: '3124567890',
       up_votes: 0,
       down_votes: 0,
     },
