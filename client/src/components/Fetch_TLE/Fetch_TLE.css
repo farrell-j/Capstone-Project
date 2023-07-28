@@ -1,12 +1,33 @@
+::-webkit-scrollbar {
+    width: 1px; /* Adjust the width of the scrollbar */
+}
+::-webkit-scrollbar-track {
+    background-color: black; 
+}
+::-webkit-scrollbar-thumb {
+    background-color: black; 
+}
 .fetch_tle_body {
+    height: 100%;
+    width: 100%;
+    /* overflow:auto;
+    overflow-y: scroll; */
     /* background-color: black; */
     /* background-color: blue;  */
 }
+#search_monkey_img {
+    height: 80%;
+    width: 80%;
+    /* padding-top: -40%; */
+    /* background-color: blue; */
+}
 #monkey_img {
-    border-radius: 10%;
+    height: 30%;
+    width: 30%;
+    /* border-radius: 10%; */
     padding-top: 0%;
     margin-top: 0%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); */
     /* background-color: blue; */
 }
 .button {
@@ -14,7 +35,7 @@
     /* background-color: blueviolet; */
 }
 #searchSATCATs {
-    color: white;
+    color: yellow;
     margin-right: 1%;
     border-radius: 10%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -22,28 +43,58 @@
     /* background-color: blue; */
 }
 #submit_button {
-    color: white;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    color: yellow;
     border-radius: 10%;
+    border-color: aliceblue;
     background-color: black;
     /* background-color: blueviolet; */
-
+}
+#submit_button:hover {
+    background-color: yellow;
+    color: black;
 }
 .fetch_tle_return {
-    background-color: black;
+    overflow-y: scroll;
+    
+    height: 400px;
+    margin-left: 10%;
+    margin-right: 10%
+    /* background-color: black; */
     /* background-color: blueviolet; */
 }
 
 #SCC_return {
-    /* background-color: black; */
+    padding-bottom: 5%;
+    background-color: black;
+    color: yellow;
     /* background-color: blue; */
 
 }
 #NO_SCC_return {
-    /* background-color: black; */
+    padding-bottom: 5%;
+    background-color: black;
+    color: yellow;
     /* background-color: blue; */    
 }
 #NO_SCC_Line_return {
     padding-bottom: 5%;
     background-color: black;
+    color: yellow;
     /* background-color: blue;    */
+}
+#copy_button {
+    color: yellow;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    background-color: black;
+}
+#copy_button:hover {
+    background-color: yellow;
+    color: black;
 }

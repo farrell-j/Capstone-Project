@@ -5,6 +5,7 @@ import './Login.css';
 import LoginForm from './LoginForm';
 import Register from '../Register/Register.js';
 import { TokenContext } from "../../App";
+// import Dancing from '../Dancing_Monkey/Dancing.js';
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -12,7 +13,7 @@ export const LoginPage =  (props) => {
     const [username, setUsername] = useState ('');
     const [pass, setPass] = useState('');
     const navigate = useNavigate();
-    const {setToken, setUserLoggedIn} = React.useContext(TokenContext)
+    const {setToken, setUserLoggedIn} = useContext(TokenContext)
 
     const handleSubmit = async (e) => {
 
@@ -52,7 +53,11 @@ export const LoginPage =  (props) => {
     };
 
    return (
-    <>
+
+    <div id='login_body'>
+
+    {/* <Dancing /> */}
+
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="auth-form-continer">
@@ -85,7 +90,7 @@ export const LoginPage =  (props) => {
                         Need an account? Click here!
                     </button> */}
         </div>
-    </>
+    </div>
 
     );
 };

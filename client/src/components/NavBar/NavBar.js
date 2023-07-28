@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react'
 import './NavBar.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { TokenContext } from '../../App.js'
-import Space_Monkey from '../../images/Space_Monkey.svg';
+import Space_Monkey from '../../images/Space_Monkey_No_Background.svg';
 
 
 
@@ -35,8 +35,14 @@ const Navbar = () => {
                 }}>View All Inventory</button>|<button className='navButton' onClick={()=>{
                     navigate('/newitem')
                 }}>Add New Item</button></> : <></>}
-                    <img className='monkey' src={ Space_Monkey } alt="monkey" height={60} />
+                
             </div>
+            <div className='monkey_container'>
+                <Link to="/TLE">
+                    <img className='monkey hover-effect' src={ Space_Monkey } alt="monkey" height={60}/>
+                </Link>
+            </div>
+
             {userIn && token.length > 0 ? <span id='username'>Welcome, {token.username.toUpperCase()}!</span> : <></>}
             <Link id="appTitle" to= {`/homepage/${token.DoD_id}`} style={{ textDecoration: 'none' }}>One Track Satellite</Link>
         </div>

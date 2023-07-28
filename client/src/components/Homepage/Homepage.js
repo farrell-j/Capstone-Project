@@ -1,36 +1,42 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './Homepage.css';
 // import NavBar from '../NavBar/Navbar.js';
 import SideSearch from '../SideSearch/SideSearch.js';
+import Trending from '../Trending/Trending';
 
 const HomePage = ({ userToken, isModerator }) => {
-    const [posts, setPosts] = useState([]);
+    const [satlist, setSatlist] = useState([]);
+    
 
-    useEffect(() => {
-        fetch('http://localhost:8080/posts', {
-            headers: {
-                Authorization: `Bearer ${userToken}`
+    useEffect(()=> {
+      fetch('http://localhost:8080/satellites')
+          .then(res => res.json())
+          .then(async data => {
+            for (let satellite of data) {
+              let temp = 0;
+              let tempArr = [];
+              await fetch(`http://localhost:8080/posts/${satellite.SATCAT}`)
+                  .then(res => res.json())
+                  .then(data => {
+                      tempArr.push(data)
+                      for (let t of tempArr[0]) {
+                          temp += t.up_votes;
+                      }
+                      satellite['up_votes'] = temp
+                  })                
             }
-        })
-        .then((res) => res.json())
-        .then((data) => setPosts(data))
-        .catch((err) => console.error('Error fetching posts', err))
-    }, [userToken])
+            setSatlist(data)
+          })
+    }, [])
 
-    return(
+    if (satlist.length > 0) {
+      return(
         <div>
-        {/*      <NavBar /> */}
             <SideSearch />
-            <div>
-          {posts.map((post) => (
-            <div key={post.SATCAT_id}>
-              {/* <h2>{post.title}</h2> */}
-              <p>{post.text}</p>
-            </div>
-          ))}
-            </div>
+            <Trending satlist={satlist}/>
         </div>
-    )
+      )
+    }
 }
 
 export default HomePage;

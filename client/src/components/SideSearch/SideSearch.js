@@ -29,13 +29,13 @@ const SideSearch = () => {
                 }}/>
                 <div id="displaySearchContainer">
                     {satlist.map(satellite => {
-                        return <ItemContainer onClick={()=>{
+                        return <div className="satCon" key={satellite.SATCAT} onClick={()=>{
                             navigate(`/satellite/${satellite.SATCAT}`)
                         }}>
                             <p>SATCAT: {satellite.SATCAT}</p>
                             <p>Created By: {satellite.created_by_id}</p>
                             <p>Launch Year: {satellite.launch_date}</p>
-                        </ItemContainer>
+                        </div>
                     })}
                 </div>
             </div>
@@ -55,9 +55,3 @@ const SideSearch = () => {
 }
 
 export default SideSearch
-
-
-const ItemContainer = styled.div`
-outline: 2px solid #C54B87;
-
-`

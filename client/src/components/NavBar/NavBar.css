@@ -1,4 +1,5 @@
 #navbarContainer {
+    object-fit: contain;
     background-color: #29435C;
     padding: .5rem;
     display: flex;
@@ -46,6 +47,19 @@
 #appTitle:hover {
     color: #556E53;
 }
-.monkey {
-    bottom: 5px
+.monkey_container {
+    /* position: fixed; */
+    margin-right: 60%;
+    /* background-color: blue; */
 }
+.monkey {
+    margin-top: 10%;
+    /* background-color: blueviolet; */
+}
+.hover-effect {
+    transition: filter 0.1s ease; /* Add a smooth transition on hover */
+}
+.hover-effect:hover {
+    filter: brightness(50%); /* Darken the image */
+}
+
