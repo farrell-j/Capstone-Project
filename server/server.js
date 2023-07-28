@@ -135,20 +135,36 @@ app.get('/satellite/:SATCAT', function (req, res) {
 })
 
 //get all posts for the statellite (using the SATCAT) (tested good)
-app.get('/posts/:SATCAT_id', function (req, res) {
+app.get('/posts/:SATCAT_id', (req, res) => {
     const SATCATNum = req.params.SATCAT_id;
-    knex('posts')
-    .select("*")
-    .where("SATCAT_id", SATCATNum)
-    .then((data) => {
+  
+    knex
+      .select(
+        'posts.post_id',
+        'posts.SATCAT_id',
+        'posts.date_posted',
+        'posts.post_text',
+        'posts.up_votes',
+        'posts.down_votes',
+        'user_accounts.firstname',
+        'user_accounts.lastname',
+        'user_accounts.email'
+      )
+      .from('posts')
+      .where('SATCAT_id', SATCATNum)
+      .join('user_accounts', 'posts.post_author', 'user_accounts.DoD_id')
+      .orderBy('up_votes', 'desc')
+      .then((data) => {
         res.status(200).json(data);
-    })
-    .catch((err) => 
-    res.status(500).json({
-        message: 'An error occured while fetching the posts for the selected satellite'
-    }))
-})
-
+      })
+      .catch((err) =>
+        res.status(500).json({
+          message: 'An error occurred while fetching the posts for the selected satellite',
+          err: err
+        })
+      );
+  });
+  
 //get all single post by post_id (tested good)
 app.get('/post/:id', function (req, res) {
     const id = req.params.id;
@@ -279,18 +295,38 @@ app.patch('/satellite/:satcat', (req,res) => {
                 })
 })
 
-//patch posts based off post_id (tested good)
+//patch to posts table (used for up and down votes)
 app.patch('/post/:id', (req, res) => {
-    const editPost = req.body
-    const id = req.params.id
-
+    const id = req.params.id;
+    const { up_votes, down_votes } = req.body;
+  
     knex('posts')
-        .where('post_id', id)
-        .update(editPost)
-        .then(data => {
-                res.status(200).json('Updated!')
-            })
-})
+      .select('up_votes', 'down_votes')
+      .where('post_id', id)
+      .first()
+      .then((post) => {
+        
+        const newUpVotes = post.up_votes + (up_votes ? 1 : 0); 
+        const newDownVotes = post.down_votes + (down_votes ? 1 : 0); 
+  
+        knex('posts')
+          .where('post_id', id)
+          .update({ up_votes: newUpVotes, down_votes: newDownVotes })
+          .then(() => {
+            res.status(200).json('Votes Updated!');
+          })
+          .catch((error) => {
+            console.error('Error updating votes:', error);
+            res.status(500).json({ error: 'An error occurred while updating votes.' });
+          });
+      })
+      .catch((error) => {
+        console.error('Error fetching post:', error);
+        res.status(500).json({ error: 'An error occurred while fetching the post.' });
+      });
+  });
+  
+  
 
 // 
 // DELETE REQUESTS BELOW
@@ -329,21 +365,6 @@ app.delete('/post/:id', (req, res) => {
         })
 })
 
-
-//SPECIAL PROXY END POINT TO FETCH DATA FROM EXTERNAL API
-// app.get('/proxy-tle/:id', async (req, res) => {
-//     let id = req.params.id
-//     try {
-//       const response = await fetch(`https://tle.ivanstanojevic.me/api/tle/${id}`);
-//       const data = await response.json();
-//       res.json(data);
-//     } catch (error) {
-//       res.status(500).json({ message: 'Error fetching data from the external API' });
-//     }
-// });
-
-// Track_Tool SPECIAL PROXY END POINT TO FETCH DATA FROM EXTERNAL API 
-//_UPDATED_ To allow for multiple seraches seperated by comma 
 app.get('/proxy-tle', async (req, res) => {
     const satelliteIds = req.query.ids;
     
