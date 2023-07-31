@@ -9,6 +9,7 @@ const port = 8080;
 const knex = require('knex')(require('./knexfile.js')['development'])
 const jwt = require('jsonwebtoken')
 // const uuid = require('uuid')
+const sanitizeHtml = require('sanitize-html');
 
 const corsOptions = {
     origin: "http://localhost:3000",
@@ -233,13 +234,30 @@ app.post('/register', function(req, res) {
 })
 
 //add a post for a satellite (tested good)
-app.post('/posts/:SATCAT_id', (req,res) => {
+// app.post('/posts/:SATCAT_id', (req,res) => {
+//     const SATCAT = req.params.SATCAT_id;
+//     const { post_text } = req.body;
+//     knex('posts')
+//         .insert({ "SATCAT_id": SATCAT, "post_text": post_text })
+//         .then(data => {res.status(200).json('Posted.')})
+//         .catch(err => {res.status(500).json({message: 'An error occurred while posting', error:err})})
+// })
+
+app.post('/posts/:SATCAT_id', (req, res) => {
     const SATCAT = req.params.SATCAT_id;
-    const { post_text } = req.body;
+    console.log(req.body);
+    const {post_text, post_author} = req.body;
+    const sanitizedContent = sanitizeHtml(post_text);
+    console.log(sanitizedContent);
+
     knex('posts')
-        .insert({ "SATCAT_id": SATCAT, "post_text": post_text })
-        .then(data => {res.status(200).json('Posted.')})
-        .catch(err => {res.status(500).json({message: 'An error occurred while posting', error:err})})
+        .insert({ SATCAT_id: SATCAT, post_text : sanitizedContent, post_author, up_votes: 0, down_votes: 0 })
+        .then(() => {
+            res.status(200).json({message: 'Content saved to posts'})
+        })
+        .catch((err) => {
+            res.status(500).json({message: 'Error in saving post to server', err:err})
+        })
 })
 
 //post a new satellite (tested good)

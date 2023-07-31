@@ -1,8 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { TokenContext } from '../../App';
+
+function EditorComponent() {
+    const { SATCAT } = useParams();
+    const [content, setContent] = useState('');
+    const { token } = useContext(TokenContext);
+    console.log(token.DoD_id)
+  
+    const handleQuillChange = (value) => {
+      setContent(value);
+    };
+  
+    const submitPost = () => {
+        console.log(content)
+      fetch(`http://localhost:8080/posts/${SATCAT}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post_text: content, post_author: token.DoD_id })
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return res.json();
+        })
+        .then((data) => console.log(data))
+        .catch((err) => console.error('Fetch Error', err));
+    };
+  
+    return (
+      <>
+        <ReactQuill value={content} onChange={handleQuillChange} />
+        <button onClick={submitPost}>Post</button>
+      </>
+    );
+  }
+  
 
 function SatelliteDetails () {
     const { SATCAT } = useParams();
@@ -27,8 +66,8 @@ function SatelliteDetails () {
           });
       }, [SATCAT]);
 
-      console.log(sateData);
-      console.log(satePosts)
+    //   console.log(sateData);
+    //   console.log(satePosts)
 
     async function submitVote(voteType, oldVotes, postId) {
     let newVotes;
@@ -106,17 +145,18 @@ function SatelliteDetails () {
             </SatelliteInfo>
             <SatellitePosts>
                 {satePosts.map((post) => { return(
-                <Post>  
+                <Post key={post.id}>  
                     <PostDetails>
-                        <p>By: {post.firstname} {post.lastname}</p> 
+                        <p>By: {post.firstname} {post.lastname} ({post.email})</p> 
                         <p>Date posted: {formatDateTime(post.date_posted)}</p>
                     </PostDetails>
-                    <PostText><p>{post.post_text}</p></PostText>
+                    <PostText dangerouslySetInnerHTML={{ __html: post.post_text }}></PostText>
                     <PostVotes>
                         <ThumbUpIcon onClick={() =>  submitVote('upvote', post.up_votes, post.post_id)}/> <p>{post.up_votes}</p>
                         <ThumbDownIcon onClick={() =>  submitVote('downvote', post.down_votes, post.post_id)}/> <p>{post.down_votes}</p>
                     </PostVotes>
                 </Post>)})}
+                <EditorComponent/>
             </SatellitePosts>
         </PageContainer>
     )
