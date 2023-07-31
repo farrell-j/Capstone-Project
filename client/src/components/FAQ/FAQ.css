@@ -1,10 +1,8 @@
-#faq{
-    border-style: solid;
-    border-color: #D1D4C9;
+#faq {
     background-color: #29435C;
-    margin-top: -8rem;
-    width: 50rem;
-    height: 40rem;
-    overflow: hidden;
-    border-radius: 1rem;
+    padding:100px;
+    border-bottom: solid;
+    border-width: 50px;
+    border-color: #D1D4C9;
+    border-radius: 50%;
 }

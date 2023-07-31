@@ -5,7 +5,7 @@ import './Login.css';
 import LoginForm from './LoginForm';
 import Register from '../Register/Register.js';
 import { TokenContext } from "../../App";
-// import Dancing from '../Dancing_Monkey/Dancing.js';
+import Dancing from '../Dancing_Monkey/Dancing.js';
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -56,16 +56,16 @@ export const LoginPage =  (props) => {
 
     <div id='login_body'>
 
-    {/* <Dancing /> */}
+    
 
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="auth-form-continer">
             
-            <h1> One Track Satellite</h1>
-            <h2>Space Monkeys Login Here!</h2>
+            <h1> One Track Satellite<br></br>Space Monkeys Login Here!</h1>
+            <br></br>
             <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="DoD_id">DoD ID</label>
+                <label  htmlFor="DoD_id"><strong>DoD ID</strong></label>
                 <input 
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -74,7 +74,7 @@ export const LoginPage =  (props) => {
                     id="DoD ID"
                     name="DoD ID"
                     />
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password"><strong>Password</strong></label>
                     <input 
                         value={pass}
                         onChange={(e) => setPass(e.target.value)}
@@ -83,9 +83,11 @@ export const LoginPage =  (props) => {
                         id="password"
                         name="password"
                     />
-                    <button type="submit">Login</button>
+                    <button type="submit"><strong>Login</strong></button>
                     </form>
-                    <Link to="/Register" className="Link-1">Need to register an account? Click here!</Link>
+                    <br></br>
+                    <br></br>
+                    <Link to="/Register" className="Link-1"><strong>Need to register an account? Click here!</strong></Link>
                     {/* <button className="Link-btn" onClick={() => props.onFormSwitch.toggleForm('Register')}>
                         Need an account? Click here!
                     </button> */}

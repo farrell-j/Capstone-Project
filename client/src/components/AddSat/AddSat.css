@@ -8,7 +8,8 @@
 }
 
 .AddSatTitle{
-    color: goldenrod;
+    border-radius:  12px;
+    color: white;
     font-size: 50px;
     font-weight: 600;
     margin-top: 30px;
@@ -146,45 +147,43 @@ width: 400px;
 }
 
 .satsubmitbutton {
-    border: 2px solid currentColor;
-    border-radius: 3rem;
-    color: purple;
-    font-family: roboto;
-    font-size: 2rem;
-    font-weight: 100;
-    overflow: hidden;
-    padding: 1rem 2rem;
-    position: relative;
-    text-decoration: none;
-    transition: .2s transform ease-in-out;
-    will-change: transform;
-    z-index: 0;
-}
-
-    :after {
-      background-color: yellow;
-      border-radius: 3rem;
-      content: '';
-      display: block;
-      height: 50%;
-      width: 50%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      transform: translate (-100%, 0) rotate(10deg);
-      transform-origin: top left;
-      transition: .2s transform ease-out;
-      will-change: transform;
-      z-index: -1;
-    }
-    :hover::after { 
-      transform: translate(0, 0);
-    }
-
-    :hover {
-      border: 2px solid transparent;
-      color: indigo;
-      transform :scale(1.05);
-      will-change: transform;
+         border-radius: 4px;
+        background-color: #5ca1e1;
+        border: none;
+        color: #fff;
+        text-align: center;
+        font-size: 32px;
+        padding: 16px;
+        width: 220px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 36px;
+        box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+      }
       
-    }
+      satsubmitbutton{
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      
+      satsubmitbutton:after {
+        content: '';
+        position: absolute;
+        opacity: 0;  
+        top: 14px;
+        right: -20px;
+        transition: 0.5s;
+      }
+      
+      satsubmitbutton:hover{
+        padding-right: 24px;
+        padding-left:8px;
+      }
+      
+      satsubmitbutton:hover:after {
+        opacity: 1;
+        right: 10px;
+      }
+    

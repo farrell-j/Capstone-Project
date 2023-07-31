@@ -30,14 +30,15 @@ const Navbar = () => {
                     navigate(`/moderator/${token.DoD_id}`)
                 }}>Moderator</button></> : <></>}|<button className='navButton' onClick={()=>{
                     navigate('/faq')
-                }}>FAQ</button></> : <></>}
-                
+                }}>FAQ</button>|<img data-tooltip-id="tletip" data-tooltip-content="TLE Data Tool" className='monkey hover-effect' src={ Space_Monkey } alt="monkey" height={60} onClick={()=>{
+                    navigate('/TLE')
+                }}/></> : <></>}
             </div>
-            <div className='monkey_container'>
+            {/* <div className='monkey_container'>
                 <Link to="/TLE">
                     <img data-tooltip-id="tletip" data-tooltip-content="TLE Data Tool" className='monkey hover-effect' src={ Space_Monkey } alt="monkey" height={60}/>
                 </Link>
-            </div>
+            </div> */}
 
             {userLoggedIn && token.length > 0 ? <span id='username'>Welcome, {token.username.toUpperCase()}!</span> : <></>}
             <Link id="appTitle" to= {`/homepage/${token.DoD_id}`} style={{ textDecoration: 'none' }}>One Track Satellite</Link>

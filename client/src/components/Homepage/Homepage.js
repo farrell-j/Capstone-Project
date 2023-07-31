@@ -1,15 +1,21 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import './Homepage.css';
 // import NavBar from '../NavBar/Navbar.js';
 import SideSearch from '../SideSearch/SideSearch.js';
 import Trending from '../Trending/Trending';
+import { TokenContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
-const HomePage = ({ userToken, isModerator }) => {
+const HomePage = () => {
     const [satlist, setSatlist] = useState([]);
-    
+    const {userLoggedIn} = useContext(TokenContext);
+    const navigate = useNavigate()
 
     useEffect(()=> {
-      fetch('http://localhost:8080/satellites')
+      if(!userLoggedIn) {
+        navigate('/login');
+      } else {
+        fetch('http://localhost:8080/satellites')
           .then(res => res.json())
           .then(async data => {
             for (let satellite of data) {
@@ -27,6 +33,7 @@ const HomePage = ({ userToken, isModerator }) => {
             }
             setSatlist(data)
           })
+      }
     }, [])
 
     if (satlist.length > 0) {

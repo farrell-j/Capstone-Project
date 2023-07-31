@@ -47,19 +47,15 @@
 #appTitle:hover {
     color: #556E53;
 }
-.monkey_container {
-    /* position: fixed; */
-    margin-right: 60%;
-    /* background-color: blue; */
-}
-.monkey {
-    margin-top: 10%;
-    /* background-color: blueviolet; */
-}
+
 .hover-effect {
     transition: filter 0.1s ease; /* Add a smooth transition on hover */
 }
 .hover-effect:hover {
     filter: brightness(50%); /* Darken the image */
+    cursor: pointer;
 }
 
+.monkey {
+    margin-bottom: -1.5rem;
+}

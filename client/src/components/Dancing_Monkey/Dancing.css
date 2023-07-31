@@ -1,17 +1,20 @@
-.page_body {
+/* .page_body {
   background-color: yellow;
-}
+} */
 .dancing_monkey_container {
-  position: relative;
-  width: 100vw; /* Adjust the width of the container as needed */
-  height: 100vh; /* Adjust the height of the container as needed */
-  overflow: hidden; /* This ensures the monkey stays within the container bounds */
-  background-color: blue;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* This ensures the monkey does not interfere with clicks on other elements */
+  z-index: 1; /* Set a negative z-index to place it behind other content */
 }
 #dancing_monkey_img {
-  height: 20%;
-  width: 20%;
+  height: 8%;
+  width: 8%;
   /* height: 40px;
   width: 40px; */
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
+  z-index: 2;
 }
