@@ -161,7 +161,7 @@ width: 400px;
     z-index: 0;
 }
 
-    &:after {
+    :after {
       background-color: yellow;
       border-radius: 3rem;
       content: '';
@@ -177,11 +177,11 @@ width: 400px;
       will-change: transform;
       z-index: -1;
     }
-    &:hover::after { 
+    :hover::after { 
       transform: translate(0, 0);
     }
 
-    &:hover {
+    :hover {
       border: 2px solid transparent;
       color: indigo;
       transform :scale(1.05);
