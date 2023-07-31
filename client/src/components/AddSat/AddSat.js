@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { TokenContext } from '../../App';
+import './AddSat.css'
+import Space_Monkey from '../../images/Space_Monkey_No_Background.svg';
 
 const AddSat = ({userToken, username}) => {
     const [satcat, setSATCAT] = useState('');
@@ -52,35 +54,33 @@ const AddSat = ({userToken, username}) => {
             } catch (error) {
                 console.log('Error:', error)
             }
-        }
+        };
 
 
 
         return (
             <>
             <div className="alert alert-warning alert-dismissible fade show" role="alert"></div>
-            <div className="auth-form-container">
-                <h2>Add Satellite</h2>
-                <form className="Add Satellite Form" onSubmit={handleSubmit}>
+            <div className="auth-form-container"> 
+                <h2 className='AddSatTitle'>Add Satellite</h2>
+                <form className="AddSatForm" onSubmit={handleSubmit}>
                     <label htmlFor="satcat">SATCAT</label>
-                    <input value={satcat} onChange={(e) => setSATCAT(e.target.value)} id="satcat" name="satcat" placeholder="SATCAT" />
+                    <input className='SCinput'value={satcat} onChange={(e) => setSATCAT(e.target.value)} id="satcat" name="satcat" placeholder="SATCAT" />
                     <label htmlFor="createdBy">Created By</label>
-                    <input value={createdBy} onChange={(e) => setCreatedBy(e.target.value)} id="createdBy" name="createdBy" placeholder={token.DoD_id} />
+                    <input className='CBinput' value={createdBy} onChange={(e) => setCreatedBy(e.target.value)} id="createdBy" name="createdBy" placeholder={token.DoD_id} />
                     <label htmlFor="launchDate">Launch Date</label>
-                    <input value={launchDate} onChange={(e) => setLaunchDate(e.target.value)} id="launchDate" name="launchDate" placeholder="YYYY/MM/DD" />
+                    <input className='LDinput' value={launchDate} onChange={(e) => setLaunchDate(e.target.value)} id="launchDate" name="launchDate" placeholder="YYYY/MM/DD" />
                     <label htmlFor="inclination">Inclination</label>
-                    <input value={inclination} onChange={(e) => setInclination(e.target.value)} id="inclination" name="inclination" placeholder="Inclination"  />
+                    <input className='INCinput' value={inclination} onChange={(e) => setInclination(e.target.value)} id="inclination" name="inclination" placeholder="Inclination"  />
                     <label htmlFor="raan">RAAN</label>
-                    <input value={raan} onChange={(e) => setRAAN(e.target.value)} id="raan" name="raan" placeholder="RAAN" />
+                    <input className='RAANinput' value={raan} onChange={(e) => setRAAN(e.target.value)} id="raan" name="raan" placeholder="RAAN" />
                     <label htmlFor="eccentricity">Eccentricity</label>
-                    <input value={eccentricity} onChange={(e) => setEccentricity(e.target.value)} id="eccentricity" name="eccentricity" placeholder="Eccentricity"  />
-                    <label htmlFor="argumentOfPerigee">Argument of Perigee</label>
-                    <input value={argumentOfPerigee} onChange={(e) => setArgumentOfPerigee(e.target.value)} id="argumentOfPerigee" name="argumentOfPerigee" placeholder="Argument of Perigee"    />
+                    <input className='ECCinput' value={eccentricity} onChange={(e) => setEccentricity(e.target.value)} id="eccentricity" name="eccentricity" placeholder="Eccentricity"  />
                     <label htmlFor="meanAnomaly">Mean Anomaly</label>
-                    <input value={meanAnomaly} onChange={(e) => setMeanAnomaly(e.target.value)} id="meanAnomaly" name="meanAnomaly" placeholder="Mean Anomaly"    />
+                    <input className='MAinput' value={meanAnomaly} onChange={(e) => setMeanAnomaly(e.target.value)} id="meanAnomaly" name="meanAnomaly" placeholder="Mean Anomaly"    />
                     <label htmlFor="image">Image URL</label>
-                    <input value={image} onChange={(e) => setImage(e.target.value)} type="text" id="image" name="image" placeholder='https://example.com/image.jpg'   /> 
-                    <button type="Submit">Submit</button>
+                    <input className='IMinput' value={image} onChange={(e) => setImage(e.target.value)} type="text" id="image" name="image" placeholder='https://example.com/image.jpg'   /> 
+                    <button className='satsubmitbutton' type="Submit">Submit</button>
                 </form>
             </div>
             </>
