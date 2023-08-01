@@ -35,7 +35,9 @@ function EditorComponent({fetchUpdatedPosts}) {
         })
         .then((data) => {
             fetchUpdatedPosts();
-            console.log(data)})
+            console.log(data);
+            setContent('');
+          })
         .catch((err) => console.error('Fetch Error', err));
     }};
   

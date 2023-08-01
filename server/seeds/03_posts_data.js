@@ -8,10 +8,12 @@ exports.seed = async function(knex) {
   await knex('posts').insert([
     {
       SATCAT_id: '25544', 
-      post_text: 'The International Space Station, it was launched on November 20th, 1998 from Tyuratam, Kazakhstan.', 
+      post_text: 'The International Space Station, it was launched on November 19th, 1998 from Tyuratam, Kazakhstan.', 
       post_author: '1234567890',
       up_votes: 0,
       down_votes: 0,
+      contested: true,
+      contested_comment: 'It was launched on November 20th, 1998',
     },
     {
       SATCAT_id: '25533', 
@@ -19,6 +21,8 @@ exports.seed = async function(knex) {
       post_author: '1234567890',
       up_votes: 3,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '44713', 
@@ -26,6 +30,8 @@ exports.seed = async function(knex) {
       post_author: '1234567890',
       up_votes: 4,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '44914', 
@@ -33,6 +39,8 @@ exports.seed = async function(knex) {
       post_author: '1234567890',
       up_votes: 1,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '49141', 
@@ -40,6 +48,8 @@ exports.seed = async function(knex) {
       post_author: '1234567890',
       up_votes: 44,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '53087', 
@@ -47,6 +57,8 @@ exports.seed = async function(knex) {
       post_author: '1234567890',
       up_votes: 1,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '54869', 
@@ -54,6 +66,8 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 1,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '55269', 
@@ -61,6 +75,8 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 5,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '56358', 
@@ -68,13 +84,17 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 2,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '57300', 
-      post_text: 'Starlink-30236, it is part of the Starlink constellation operated by SpaceX. It was launched on July 10th, 2023 from Cape Canaveral, USA.', 
+      post_text: 'Starlink-30235, it is part of the Starlink constellation operated by SpaceX. It was launched on July 10th, 2023 from Cape Canaveral, USA.', 
       post_author: '2134567890',
       up_votes: 7,
       down_votes: 0,
+      contested: true,
+      contested_comment: 'This is actually Starlink-30236.',
     },
     {
       SATCAT_id: '24907', 
@@ -82,6 +102,8 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 1,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '43013', 
@@ -89,6 +111,8 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 3,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '43226', 
@@ -96,6 +120,8 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 22,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '57166', 
@@ -103,6 +129,8 @@ exports.seed = async function(knex) {
       post_author: '2134567890',
       up_votes: 1,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '48859', 
@@ -110,6 +138,8 @@ exports.seed = async function(knex) {
       post_author: '3124567890',
       up_votes: 2,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '43567', 
@@ -117,6 +147,8 @@ exports.seed = async function(knex) {
       post_author: '3124567890',
       up_votes: 0,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '42939', 
@@ -124,6 +156,8 @@ exports.seed = async function(knex) {
       post_author: '3124567890',
       up_votes: 33,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     },
     {
       SATCAT_id: '56564', 
@@ -131,6 +165,8 @@ exports.seed = async function(knex) {
       post_author: '3124567890',
       up_votes: 0,
       down_votes: 0,
+      contested: false,
+      contested_comment: '',
     }
     ]);
 };

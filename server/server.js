@@ -251,7 +251,7 @@ app.post('/posts/:SATCAT_id', (req, res) => {
     console.log(sanitizedContent);
 
     knex('posts')
-        .insert({ SATCAT_id: SATCAT, post_text : sanitizedContent, post_author, up_votes: 0, down_votes: 0 })
+        .insert({ SATCAT_id: SATCAT, post_text : sanitizedContent, post_author, up_votes: 0, down_votes: 0, contested: false, contested_comment: '' })
         .then(() => {
             res.status(200).json({message: 'Content saved to posts'})
         })
@@ -344,8 +344,20 @@ app.patch('/post/:id', (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching the post.' });
       });
   });
-  
-  
+
+//patch req to handle contesting information
+app.patch('/contestpost/:post_id', (req, res) => {
+    const postID = req.params.post_id;
+    const { contested, contested_comment } = req.body;
+
+    knex('posts')
+        .where('post_id', postID)
+        .update({ contested, contested_comment })
+        .then(data => {
+            res.status(200).json('Contested Status updated!')
+        })
+        .catch(err => { res.status(500).json('Issue with patching contested info')})
+})
 
 // 
 // DELETE REQUESTS BELOW

@@ -1,17 +1,21 @@
 #trendCon {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-style: solid;
-    background-color: #29435C;
-    color: #D1D4C9;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem;
-    margin-left: 9.5rem;
-    width: 30rem;
-    height: 5rem;
-    animation: slideIn 4s, slideOut 1s 4.75s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-style: solid;
+  background-image: url('../../images/trendCon_rocket_ship.svg');
+  background-repeat: no-repeat;
+  /* background-color: aqua; */
+  background-color: #29435C;
+  /* color: black; */
+  color: #D1D4C9;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem;
+  margin-left: 9.5rem; 
+  width: 30rem;
+  height: 5rem;
+  animation: slideIn 4s, slideOut 1s 4.75s;
 }
 
 #trendCon h1 {

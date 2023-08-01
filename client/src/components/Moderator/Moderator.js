@@ -1,6 +1,5 @@
 import React from 'react';
 import SideSearch from '../SideSearch/SideSearch.js';
-import Trending from '../Trending/Trending';
 
 const ModeratorPage = ({ userToken }) => {
     const [satlist, setSatlist] = useState([]);
@@ -41,5 +40,30 @@ const ModeratorPage = ({ userToken }) => {
             constole.error('An error occurred removing the satellite:', error)
         }
     }
+    if (satlist.length > 0) {
+      return(
+        <div>
+            <SideSearch />
+        </div>
+      )
+    }
+}
 
-  }
+// const handleRemove = async (satelliteId) => {
+//   try {
+//     const response = await fetch(`http://localhost:8080/satellites/${satelliteId}`, {
+//       method: 'DELETE',
+//       headers: {
+//         Authorization: `Bearer ${userToken}`,
+//       },
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Failed to remove satellite');
+//     }
+
+//     setSatlist((prevSatlist) => prevSatlist.filter((satellite) => satellite.SATCAT !== satelliteId));
+//   } catch (error) {
+//     console.error('An error occurred while removing the satellite:', error);
+//   }
+// };

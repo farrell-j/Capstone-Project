@@ -14,6 +14,7 @@ import AddSat from './components/AddSat/AddSat'
 import FAQ from './components/FAQ/FAQ';
 import Dancing from './components/Dancing_Monkey/Dancing.js';
 // import login_background from '../images/STARS_background_for_homepage.svg';
+// import Moderator from './components/Moderator/moderator'
 
 
 export const TokenContext = React.createContext()

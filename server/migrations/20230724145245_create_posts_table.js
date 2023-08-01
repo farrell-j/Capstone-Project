@@ -12,6 +12,8 @@ exports.up = function(knex) {
     table.string('post_author');
     table.integer('up_votes');
     table.integer('down_votes');
+    table.boolean('contested');
+    table.string('contested_comment');
   })
 };
 
