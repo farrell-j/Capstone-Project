@@ -9,6 +9,7 @@ import add_sat_img from '../../images/add_sat_img.svg';
 import mod_img from '../../images/mod_img.svg';
 import faq_img from '../../images/faq_img.svg';
 import one_track_sat_img from '../../images/one_track_sat_img.svg';
+import direct_img from '../../images/direct_img.svg';
 import { Tooltip } from 'react-tooltip';
 
 const Navbar = () => {
@@ -57,9 +58,13 @@ const Navbar = () => {
             </>
 
             ) : null}
-            
+
               <Link to="/faq" className='navButton hover-effect'>
                 <img id='faq_nav' src={faq_img} alt="FAQ" />
+              </Link>
+            
+              <Link to='/directory' className='navButton hover-effect'>
+                <img id='direct' src={direct_img} alt="Directory" />
               </Link>
             
               <Link to="/TLE" className='navButton'>

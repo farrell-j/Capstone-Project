@@ -147,6 +147,8 @@ app.get('/posts/:SATCAT_id', (req, res) => {
         'posts.post_text',
         'posts.up_votes',
         'posts.down_votes',
+        'posts.contested',
+        'posts.contested_comment',
         'user_accounts.firstname',
         'user_accounts.lastname',
         'user_accounts.email'
@@ -218,17 +220,26 @@ app.post('/register', function(req, res) {
     bcrypt.hash(newUser.password, 10)
         .then(data => newUser.password = data)
         .then(async data => {
-            knex('user_accounts')
-                .insert(newUser)
-                .returning('*')
+        await knex('user_accounts')
+            .count('DoD_id')
+            .where('DoD_id', newUser.DoD_id)
             .then(data => {
-                newUser.password = '';
-                res.status(200).json(newUser)})
-            .catch(err => {
-                res.status(500).json({
-                    message: 'An error occurred while creating new user',
-                    'err': `${err}`
-                })
+                if(data[0].count > 0) {
+                    res.status(500).json('Username is taken!')
+                } else {
+                    knex('user_accounts')
+                    .insert(newUser)
+                    .returning('*')
+                    .then(data => {
+                        newUser.password = '';
+                        res.status(200).json(newUser)})
+                    .catch(err => {
+                        res.status(500).json({
+                            message: 'An error occurred while creating new user',
+                            'err': `${err}`
+                        })
+                    })
+                }
             })
         })
 })
@@ -381,7 +392,9 @@ app.delete('/satellite/:satcat', (req, res) => {
         .where('SATCAT', satcat)
         .del()
         .then(() => {
-            res.status(200).json('Satellite deleted successfully')
+            knex('satellite')
+                .select('*')
+                .then(data => res.status(200).send(data));
         })
 })
 

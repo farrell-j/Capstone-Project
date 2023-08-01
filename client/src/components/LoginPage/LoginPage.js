@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import Register from '../Register/Register.js';
 import { TokenContext } from "../../App";
 import Dancing from '../Dancing_Monkey/Dancing.js';
+import { useAlert } from 'react-alert'
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -14,6 +15,7 @@ export const LoginPage =  (props) => {
     const [pass, setPass] = useState('');
     const navigate = useNavigate();
     const {setToken, setUserLoggedIn} = useContext(TokenContext)
+    const alert = useAlert()
 
     const handleSubmit = async (e) => {
 
@@ -35,10 +37,13 @@ export const LoginPage =  (props) => {
         if (response.ok) {
             const data = await response.json();
             if (data.accessToken) {
-                // navigate('/');
-                setToken(data);
-                setUserLoggedIn(true);
-                navigate(`/homepage/${data.DoD_id}`)
+                if(data.banned) {
+                    alert.error(`Oh no, you've been banned!`, {timeout: 2000})
+                } else {
+                    setToken(data);
+                    setUserLoggedIn(true);
+                    navigate(`/homepage/${data.DoD_id}`)
+                }
             } else {
                 alertFunction('Sign in failed, wrong Login information input')
                 console.log('FAILED!!');

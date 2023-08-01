@@ -11,10 +11,15 @@ import Track_Tool from './components/Track_Tool/Track_Tool';
 import SatelliteDetails from './components/SatelliteDetails/SatelliteDetails';
 import Trending from './components/Trending/Trending';
 import AddSat from './components/AddSat/AddSat'
-import FAQ from './components/FAQ/FAQ';
+import FAQ_Full from './components/FAQ/FAQ_Full';
 import Dancing from './components/Dancing_Monkey/Dancing.js';
+import Profile from './components/Profile/Profile.js'
+import Directory from './components/Directory/Directory.js';
+import Resources_Link from './components/FAQ/Resources_Link.js'
+import FAQ_Link from './components/FAQ/FAQ_Link.js'
+import Learn_Link from './components/FAQ/Learn_Link.js'
 // import login_background from '../images/STARS_background_for_homepage.svg';
-// import Moderator from './components/Moderator/moderator'
+// import Moderator from './components/Moderator/Moderator.js'
 
 
 export const TokenContext = React.createContext()
@@ -39,7 +44,13 @@ function App() {
             <Route path='/homepage/:DoD_id' element={<HomePage />}/>
             <Route path='/satellite/:SATCAT' element={<SatelliteDetails/>} />
             <Route path='/addsat' element={<AddSat/>} />
-            <Route path='/FAQ' element={<FAQ/>} />
+            <Route path='/directory' element={<Directory/>} />
+            <Route path='/profile' element={<Profile/>} />
+            <Route path='/faq' element={<FAQ_Full/>} />
+            <Route path='/resources_link' element={<Resources_Link />} />
+            <Route path='/faq_link' element={<FAQ_Link />} />
+            <Route path='/learn_link' element={<Learn_Link />} />
+            {/* <Route path='/moderator/:DoD_id' element={<Moderator />} /> */}
           </Routes>
         </div>
     </TokenContext.Provider>
