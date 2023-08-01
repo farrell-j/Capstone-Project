@@ -12,7 +12,7 @@ import SatelliteDetails from './components/SatelliteDetails/SatelliteDetails';
 import Trending from './components/Trending/Trending';
 import AddSat from './components/AddSat/AddSat'
 import FAQ from './components/FAQ/FAQ';
-// import Dancing from './components/Dancing_Monkey/Dancing.js';
+import Dancing from './components/Dancing_Monkey/Dancing.js';
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -26,15 +26,15 @@ function App() {
         <header className="App-header">
           <Navbar/>
         </header>
+         <Dancing/>
         <div className='App'>
-          {/* <Dancing /> */}
           <Routes>
             <Route path='/' element={<LoginPage/>}/>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/register' element={<Register/>}/>
             <Route path='/test' element={<Trending/>}/>
             <Route path='/TLE' element={<Fetch_TLE />}/>
-            <Route path='/track' element={<Track_Tool />} />
+            {/* <Route path='/track' element={<Track_Tool />} /> */}
             <Route path='/homepage/:DoD_id' element={<HomePage />}/>
             <Route path='/satellite/:SATCAT' element={<SatelliteDetails/>} />
             <Route path='/addsat' element={<AddSat/>} />

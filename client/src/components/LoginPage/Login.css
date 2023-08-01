@@ -4,7 +4,8 @@
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    color: white;
+    background-color: #29435C;
+    color: #D1D4C9;
     /* background-image: url(${login_background}); */
     background-image: url("https://wallpapers.com/images/hd/giant-stars-4k-space-q03wbnsie2ul47hh.webp");
     background-repeat: no-repeat;
@@ -23,11 +24,16 @@
     flex-direction: column;
     background-color: none;
   }
+
+.login-form {
+  background-color: #29435C;
+  border-radius:20px;
+}
   
   @media screen and (min-width: 600px) {
     .auth-form-container {
       padding: 5rem;
-      border: 1px solid white;
+      border: 1px solid #D1D4C9;
       border-radius: 10px;
       margin: 0.5rem;
     }
@@ -46,18 +52,25 @@
   }
   
   button {
-    border: none;
-    background-color: white;
+    border: solid;
+    border-color: #D1D4C9;
+    border-width: 5px;
+    background-color: #29435C;
     padding: 20px;
     border-radius: 10px;
     cursor: pointer;
-    color: #7439db;
+    color: #D1D4C9;
+    font-size:large;
   }
   
   .link-btn {
     background: none;
-    color: white;
+    color: #D1D4C9;
     text-decoration: underline;
+    border: 100px;
+    border-color: #D1D4C9;
+    border-width: 10px;
+    background-color: #29435C;
   }
   
   #affiliation {
@@ -93,21 +106,39 @@
   }
 
   h1 {
-    color:white;
+    background-color: #29435C;
+    color:#D1D4C9;
+    margin: 10px;
+    border-radius:20px;
+
+  }
+
+  h2 {
+    background-color: #29435C;
+    color:#D1D4C9;
     margin: 10px;
   }
 
   .setting-label {
-    color: white;
+    color: #D1D4C9;
     margin: 10px;
   }
 
   #account-setting-message {
-    color:white;
+    color:#D1D4C9;
     margin: 30px;
     font-size: 30px;
   }
 
   .Link-1{
-    color: white;
+    color: #D1D4C9;
+    border: solid;
+    border-color: #D1D4C9;
+    border-width: 5px;
+    background-color: #29435C;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #D1D4C9;
+    font-size:large;
   }
