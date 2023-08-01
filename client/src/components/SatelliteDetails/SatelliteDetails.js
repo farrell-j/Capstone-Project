@@ -7,10 +7,11 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { TokenContext } from '../../App';
 
-function EditorComponent() {
+function EditorComponent({fetchUpdatedPosts}) {
     const { SATCAT } = useParams();
     const [content, setContent] = useState('');
     const { token } = useContext(TokenContext);
+    console.log(token)
     console.log(token.DoD_id)
   
     const handleQuillChange = (value) => {
@@ -18,7 +19,9 @@ function EditorComponent() {
     };
   
     const submitPost = () => {
-        console.log(content)
+        console.log(content);
+    if(content.length > 0) {
+        
       fetch(`http://localhost:8080/posts/${SATCAT}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,14 +33,16 @@ function EditorComponent() {
           }
           return res.json();
         })
-        .then((data) => console.log(data))
+        .then((data) => {
+            fetchUpdatedPosts();
+            console.log(data)})
         .catch((err) => console.error('Fetch Error', err));
-    };
+    }};
   
     return (
       <>
         <ReactQuill value={content} onChange={handleQuillChange} />
-        <button onClick={submitPost}>Post</button>
+        <button onClick={submitPost}>Add Post</button>
       </>
     );
   }
@@ -66,8 +71,16 @@ function SatelliteDetails () {
           });
       }, [SATCAT]);
 
-    //   console.log(sateData);
-    //   console.log(satePosts)
+      const fetchUpdatedPosts = () => {
+        fetch(`http://localhost:8080/posts/${SATCAT}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setSatePosts(data);
+          })
+          .catch((error) => {
+            console.error('Error fetching updated posts:', error);
+          });
+      };
 
     async function submitVote(voteType, oldVotes, postId) {
     let newVotes;
@@ -156,7 +169,7 @@ function SatelliteDetails () {
                         <ThumbDownIcon onClick={() =>  submitVote('downvote', post.down_votes, post.post_id)}/> <p>{post.down_votes}</p>
                     </PostVotes>
                 </Post>)})}
-                <EditorComponent/>
+                <EditorComponent fetchUpdatedPosts={fetchUpdatedPosts}/>
             </SatellitePosts>
         </PageContainer>
     )

@@ -161,7 +161,7 @@ width: 400px;
     z-index: 0;
 }
 
-    &:after {
+    /* &:after {
       background-color: yellow;
       border-radius: 3rem;
       content: '';
@@ -187,4 +187,4 @@ width: 400px;
       transform :scale(1.05);
       will-change: transform;
       
-    }
+    } */
