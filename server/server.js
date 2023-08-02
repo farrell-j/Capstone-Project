@@ -312,8 +312,9 @@ app.patch('/satellite/:satcat', (req,res) => {
     knex('satellite')
             .where('SATCAT', satcat)
             .update(editSat)
-            .then(data => {
-                    res.status(200).json('Updated!')
+            .returning('*')
+            .then(updatedData => {
+                    res.status(200).json(updatedData)
                 })
 })
 

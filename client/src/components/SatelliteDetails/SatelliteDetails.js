@@ -62,7 +62,9 @@ function SatelliteDetails () {
     const [ isContestPopupOpen, setContestPopupOpen ] = useState(Array(satePosts.length).fill(false));
     const [ contestMessages, setContestMessages ] = useState(Array(satePosts.length).fill(''));
 
-    const [ votedPostIds, setVotedPostIds ] = useState([])
+    const [ votedPostIds, setVotedPostIds ] = useState([]);
+
+    const [ editMode, setEditMode ] = useState(false);
 
     const toggleContestPopup = (index) => {
       // toggle contest dialog for the post at index
@@ -114,6 +116,37 @@ function SatelliteDetails () {
         });
     };
 
+    const submitEditSateInfo = (SATCATNum) => {
+      let inputName = document.getElementById('inputName').value;
+      let inputSACAT = document.getElementById('inputSATCAT').value;
+      let inputLaunchYear = document.getElementById('inputLaunchYear').value;
+      let inputInclination = document.getElementById('inputInclination').value;
+      let inputRAAN = document.getElementById('inputRAAN').value;
+      let inputEccentricity = document.getElementById('inputEccentricity').value;
+      let inputArgumentOfPerigee = document.getElementById('inputArgumentOfPerigee').value;
+      let inputMeanAnomaly = document.getElementById('inputMeanAnomaly').value;
+
+      fetch(`http://localhost:8080/satellite/${SATCATNum}`, {
+        method: "PATCH",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "SATCAT": inputSACAT, 
+                                "name": inputName,
+                                "launch_date": inputLaunchYear, 
+                                "inclination": inputInclination,
+                                "raan": inputRAAN,
+                                "eccentricity": inputEccentricity,
+                                "argument_of_perigee": inputArgumentOfPerigee,
+                                "mean_anomaly": inputMeanAnomaly,
+                               })
+      })
+      .then(response => response.json())
+      .then(data => {
+        setEditMode(false);
+        console.log(data)
+        setSateData(data);
+      })
+    }
+
     const handleVote = (voteType, postId, currentVotes) => {
       if(votedPostIds.includes(postId)) {
         return null;
@@ -156,6 +189,20 @@ function SatelliteDetails () {
       });
     };
 
+    const deletePost = (postId) => {
+      fetch(`http://localhost:8080/post/${postId}`, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        fetchUpdatedPosts();
+      })
+      .catch(error => console.error('Error:', error));
+
+    }
+
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
         const options = {
@@ -170,12 +217,11 @@ function SatelliteDetails () {
         return new Intl.DateTimeFormat('en-US', options).format(date);
       };
 
-
     if(isLoading) {
         return <div>Loading...</div>
     }
 
-    else if(!isLoading) {
+    else if(!isLoading && !token.moderator ) {
     return (
         <PageContainer>
             <h1>{sateData[0].name}</h1>
@@ -239,7 +285,141 @@ function SatelliteDetails () {
             </SatellitePosts>
         </PageContainer>
     )
-}
+  }
+  else if(!isLoading && token.moderator && !editMode) {
+    return (
+        <PageContainer>
+            <h1>{sateData[0].name}</h1>
+            <button onClick={() => {setEditMode(true)}}>Edit Info</button>
+            <SatelliteInfo>
+                <ImageContainer>
+                    <img src={sateData[0].image} alt = 'satellite image' 
+                    style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
+                </ImageContainer>
+                <SpecsContainer>
+                    <p>SATCAT: {SATCAT}</p>
+                    <p>Launch Year: {sateData[0].launch_date}</p>
+                    <p>Inclination: {sateData[0].inclination}</p>
+                    <p>RAAN: {sateData[0].raan}</p>
+                    <p>Eccentricity: {sateData[0].eccentricity}</p>
+                    <p>Arugment of Perigee: {sateData[0].argument_of_perigee}</p>
+                    <p>Mean Anomaly: {sateData[0].mean_anomaly}</p>
+                </SpecsContainer> 
+            </SatelliteInfo>
+            <SatellitePosts>
+                {satePosts.map((post, index) => { return(
+                <Post key={post.id}>  
+                    <PostDetails>
+                        <p>By: {post.firstname} {post.lastname} ({post.email})</p> 
+                        <p>Date posted: {formatDateTime(post.date_posted)}</p>
+                    </PostDetails>
+                    <PostText dangerouslySetInnerHTML={{ __html: post.post_text }}></PostText>
+                    <PostVotes>
+                        <ThumbUpIcon onClick={() =>  handleVote('upvote', post.post_id, post.up_votes)}/> <p>{post.up_votes}</p>
+                        <ThumbDownIcon onClick={() =>  handleVote('downvote', post.post_id, post.down_votes)}/> <p>{post.down_votes}</p>
+                    </PostVotes>
+                    <button onClick={() => {deletePost(post.post_id)}}>Delete</button>
+                    { post.contested ? (<ContestedContainer> <div> By: {post.contested_by} </div> <div>{post.contested_comment} </div></ContestedContainer>) : (<button onClick={() => toggleContestPopup(index)}>Contest Post</button>)}
+                    <Dialog open={isContestPopupOpen[index]} onClose={() => toggleContestPopup(index)}>
+                <DialogTitle>Contest Post</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Contest Message"
+                    type="text"
+                    fullWidth
+                    value={contestMessages[index]} // Use the contest message for this post
+                    onChange={(e) => {
+                      // Update the contest message for this post
+                      const updatedMessages = [...contestMessages];
+                      updatedMessages[index] = e.target.value;
+                      setContestMessages(updatedMessages);
+                    }}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => toggleContestPopup(index)} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={() => contestSubmit(index, post.post_id)} color="primary">
+                    Submit
+                  </Button>
+                </DialogActions>
+              </Dialog>
+                </Post>)})}
+                <EditorComponent fetchUpdatedPosts={fetchUpdatedPosts}/>
+            </SatellitePosts>
+        </PageContainer>
+    )
+  }
+  else if(!isLoading && token.moderator && editMode) {
+    return (
+        <PageContainer>
+            <h1><input id="inputName" type="text" defaultValue={sateData[0].name} ></input></h1>
+            <button onClick={()=> {submitEditSateInfo(sateData[0].SATCAT)}}>Save Changes</button>
+            <SatelliteInfo>
+                <ImageContainer>
+                    <img src={sateData[0].image} alt = 'satellite image' 
+                    style={{ objectFit: 'contain', width: '100%', height: '100%' }} />
+                </ImageContainer>
+                <SpecsContainer>
+                    <p>SATCAT: <input id="inputSATCAT" type="text" defaultValue={sateData[0].SATCAT} ></input></p>
+                    <p>Launch Year: <input id="inputLaunchYear" type="text" defaultValue={sateData[0].launch_date} ></input></p>
+                    <p>Inclination: <input id="inputInclination" type="text" defaultValue={sateData[0].inclination} ></input></p>
+                    <p>RAAN: <input id="inputRAAN" type="text" defaultValue={sateData[0].raan} ></input></p>
+                    <p>Eccentricity: <input id="inputEccentricity" type="text" defaultValue={sateData[0].eccentricity} ></input></p>
+                    <p>Arugment of Perigee: <input id="inputArgumentOfPerigee" type="text" defaultValue={sateData[0].argument_of_perigee} ></input></p>
+                    <p>Mean Anomaly: <input id="inputMeanAnomaly" type="text" defaultValue={sateData[0].mean_anomaly} ></input></p>
+                </SpecsContainer>
+            </SatelliteInfo>
+            <SatellitePosts>
+                {satePosts.map((post, index) => { return(
+                <Post key={post.id}>  
+                    <PostDetails>
+                        <p>By: {post.firstname} {post.lastname} ({post.email})</p> 
+                        <p>Date posted: {formatDateTime(post.date_posted)}</p>
+                    </PostDetails>
+                    <PostText dangerouslySetInnerHTML={{ __html: post.post_text }}></PostText>
+                    <PostVotes>
+                        <ThumbUpIcon onClick={() =>  handleVote('upvote', post.post_id, post.up_votes)}/> <p>{post.up_votes}</p>
+                        <ThumbDownIcon onClick={() =>  handleVote('downvote', post.post_id, post.down_votes)}/> <p>{post.down_votes}</p>
+                    </PostVotes>
+                    <button onClick={() => {deletePost(post.post_id)}}>Delete</button>
+                    { post.contested ? (<ContestedContainer> <div> By: {post.contested_by} </div> <div>{post.contested_comment} </div></ContestedContainer>) : (<button onClick={() => toggleContestPopup(index)}>Contest Post</button>)}
+                    <Dialog open={isContestPopupOpen[index]} onClose={() => toggleContestPopup(index)}>
+                <DialogTitle>Contest Post</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Contest Message"
+                    type="text"
+                    fullWidth
+                    value={contestMessages[index]} // Use the contest message for this post
+                    onChange={(e) => {
+                      // Update the contest message for this post
+                      const updatedMessages = [...contestMessages];
+                      updatedMessages[index] = e.target.value;
+                      setContestMessages(updatedMessages);
+                    }}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => toggleContestPopup(index)} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={() => contestSubmit(index, post.post_id)} color="primary">
+                    Submit
+                  </Button>
+                </DialogActions>
+              </Dialog>
+                </Post>)})}
+                <EditorComponent fetchUpdatedPosts={fetchUpdatedPosts}/>
+            </SatellitePosts>
+        </PageContainer>
+    )
+  }
 }
 
 export default SatelliteDetails;
