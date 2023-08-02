@@ -147,6 +147,9 @@ app.get('/posts/:SATCAT_id', (req, res) => {
         'posts.post_text',
         'posts.up_votes',
         'posts.down_votes',
+        'posts.contested',
+        'posts.contested_comment',
+        'posts.contested_by',
         'user_accounts.firstname',
         'user_accounts.lastname',
         'user_accounts.email'
@@ -348,11 +351,11 @@ app.patch('/post/:id', (req, res) => {
 //patch req to handle contesting information
 app.patch('/contestpost/:post_id', (req, res) => {
     const postID = req.params.post_id;
-    const { contested, contested_comment } = req.body;
+    const { contested, contested_comment, contested_by } = req.body;
 
     knex('posts')
         .where('post_id', postID)
-        .update({ contested, contested_comment })
+        .update({ contested, contested_comment, contested_by })
         .then(data => {
             res.status(200).json('Contested Status updated!')
         })

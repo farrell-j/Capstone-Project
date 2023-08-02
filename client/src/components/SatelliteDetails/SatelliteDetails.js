@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { TokenContext } from '../../App';
@@ -52,10 +53,37 @@ function EditorComponent({fetchUpdatedPosts}) {
 
 function SatelliteDetails () {
     const { SATCAT } = useParams();
+    const { token } = useContext(TokenContext);
 
     const[ sateData, setSateData ] = useState(null)
     const[ satePosts, setSatePosts ] = useState([])
     const[ isLoading, setIsLoading ] = useState(true)
+
+    const [ isContestPopupOpen, setContestPopupOpen ] = useState(Array(satePosts.length).fill(false));
+    const [ contestMessages, setContestMessages ] = useState(Array(satePosts.length).fill(''));
+
+    const [ votedPostIds, setVotedPostIds ] = useState([])
+
+    const toggleContestPopup = (index) => {
+      // toggle contest dialog for the post at index
+      const updatedPopupState = [...isContestPopupOpen];
+      updatedPopupState[index] = !updatedPopupState[index];
+      setContestPopupOpen(updatedPopupState);
+    };
+
+    const contestSubmit = (index, postID) => {
+      const contestedBy = `${token.firstname} ${token.lastname}`
+      fetch(`http://localhost:8080/contestpost/${postID}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contested: true, contested_comment: contestMessages[index], contested_by: contestedBy}),
+      })
+      .then((res) => res.json())
+      .then((data) => {fetchUpdatedPosts();})
+      console.log('Contest submitted for post:', index);
+      console.log('Contest message:', contestMessages[index]); 
+      toggleContestPopup(index); 
+    };
 
     useEffect(() => {
         Promise.all([
@@ -71,54 +99,62 @@ function SatelliteDetails () {
             console.error('Error fetching data:', error);
             setIsLoading(false);
           });
+          const storedVotedPostIds = JSON.parse(localStorage.getItem('votedPostIds')) || [];
+          setVotedPostIds(storedVotedPostIds);
       }, [SATCAT]);
 
-      const fetchUpdatedPosts = () => {
-        fetch(`http://localhost:8080/posts/${SATCAT}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setSatePosts(data);
-          })
-          .catch((error) => {
-            console.error('Error fetching updated posts:', error);
-          });
-      };
+    const fetchUpdatedPosts = () => {
+      fetch(`http://localhost:8080/posts/${SATCAT}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSatePosts(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching updated posts:', error);
+        });
+    };
 
-    async function submitVote(voteType, oldVotes, postId) {
-    let newVotes;
-    
-    if (voteType === 'upvote') {
-        newVotes = oldVotes + 1;
-    } else if (voteType === 'downvote') {
-        newVotes = oldVotes + 1;
-    } else {
+    const handleVote = (voteType, postId, currentVotes) => {
+      if(votedPostIds.includes(postId)) {
+        return null;
+      }
+
+      let newVotes;
+  
+      if (voteType === 'upvote') {
+        newVotes = currentVotes + 1;
+      } else if (voteType === 'downvote') {
+        newVotes = currentVotes + 1;
+      } else {
         return;
-    }
-
-    const bodyData = voteType === 'upvote' ? { up_votes: newVotes } : { down_votes: newVotes };
+      }
     
-    fetch(`http://localhost:8080/post/${postId}`, {
+      const bodyData = voteType === 'upvote' ? { up_votes: newVotes } : { down_votes: newVotes };
+    
+      fetch(`http://localhost:8080/post/${postId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bodyData),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            const updatedPosts = satePosts.map((post) => {
-                if (post.post_id === postId) {
-                  return { ...post, ...bodyData };
-                } else {
-                  return post;
-                }
-              });
-      
-              setSatePosts(updatedPosts);
-        console.log(data);
-        })
-        .catch((error) => {
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setVotedPostIds((prevVotedPostIds) => [...prevVotedPostIds, postId]);
+    
+        setSatePosts((prevSatePosts) =>
+          prevSatePosts.map((p) => (p.post_id === postId ? { ...p, ...bodyData } : p))
+        );
+    
+        localStorage.setItem('votedPostIds', JSON.stringify([...votedPostIds, postId]));
+      })
+      .catch((error) => {
         console.error('Fetch Error:', error);
-        });
-    }
+      });
+    };
 
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
@@ -159,7 +195,7 @@ function SatelliteDetails () {
                 </SpecsContainer>
             </SatelliteInfo>
             <SatellitePosts>
-                {satePosts.map((post) => { return(
+                {satePosts.map((post, index) => { return(
                 <Post key={post.id}>  
                     <PostDetails>
                         <p>By: {post.firstname} {post.lastname} ({post.email})</p> 
@@ -167,9 +203,37 @@ function SatelliteDetails () {
                     </PostDetails>
                     <PostText dangerouslySetInnerHTML={{ __html: post.post_text }}></PostText>
                     <PostVotes>
-                        <ThumbUpIcon onClick={() =>  submitVote('upvote', post.up_votes, post.post_id)}/> <p>{post.up_votes}</p>
-                        <ThumbDownIcon onClick={() =>  submitVote('downvote', post.down_votes, post.post_id)}/> <p>{post.down_votes}</p>
+                        <ThumbUpIcon onClick={() =>  handleVote('upvote', post.post_id, post.up_votes)}/> <p>{post.up_votes}</p>
+                        <ThumbDownIcon onClick={() =>  handleVote('downvote', post.post_id, post.down_votes)}/> <p>{post.down_votes}</p>
                     </PostVotes>
+                    { post.contested ? (<ContestedContainer> <div> By: {post.contested_by} </div> <div>{post.contested_comment} </div></ContestedContainer>) : (<button onClick={() => toggleContestPopup(index)}>Contest Post</button>)}
+                    <Dialog open={isContestPopupOpen[index]} onClose={() => toggleContestPopup(index)}>
+                <DialogTitle>Contest Post</DialogTitle>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    label="Contest Message"
+                    type="text"
+                    fullWidth
+                    value={contestMessages[index]} // Use the contest message for this post
+                    onChange={(e) => {
+                      // Update the contest message for this post
+                      const updatedMessages = [...contestMessages];
+                      updatedMessages[index] = e.target.value;
+                      setContestMessages(updatedMessages);
+                    }}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => toggleContestPopup(index)} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={() => contestSubmit(index, post.post_id)} color="primary">
+                    Submit
+                  </Button>
+                </DialogActions>
+              </Dialog>
                 </Post>)})}
                 <EditorComponent fetchUpdatedPosts={fetchUpdatedPosts}/>
             </SatellitePosts>
@@ -213,6 +277,7 @@ border-radius: 10px;
 `
 
 const Post = styled.div`
+margin: 1em;
 
 `
 const PostVotes = styled.div`
@@ -229,4 +294,9 @@ justify-content: space-around;
 `
 
 const PostText = styled.div`
+`
+
+const ContestedContainer = styled.div`
+border: 2px solid red;
+border-radius: 5px;
 `
