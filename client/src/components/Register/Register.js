@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {useNavigate, Link} from "react-router-dom";
 import './Register.css'
 // import {alertWarning, alertSuccess} from "./Homepage";
+import { useAlert } from 'react-alert'
+import { TokenContext } from "../../App";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -13,6 +15,8 @@ export const Register = (props) => {
     const [lastName, setLastName] = useState('');
     const [passwordMatchError, setPasswordMatchError] = useState(false);
     const navigate = useNavigate();
+    const alert = useAlert()
+    const {token, setToken, setUserLoggedIn} = useContext(TokenContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,27 +33,57 @@ export const Register = (props) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ 
-                    "firstname": firstName, 
-                    "lastname": lastName, 
-                    "DoD_id": username, 
+                    "firstname": firstName,
+                    "lastname": lastName,
+                    "DoD_id": username,
                     "email": email,
                     "organization": organization,
                     "password": pass,
                      }),
             });
                 
+            const data = await response.json();
             if (response.ok) {
-                const data = await response.json();
                 if (data.DoD_id) {
-                    navigate('/login')
+                    alert.success('Thank you for registering!', {
+                        timeout: 2000,
+                        onClose: () => {
+                            const init2 = {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({ 
+                                    "firstname": firstName,
+                                    "lastname": lastName,
+                                    "DoD_id": username,
+                                    "email": email,
+                                    "organization": organization,
+                                    "password": pass,
+                                     })
+                              };
+                          fetch('http://localhost:8080/login', init2)
+                              .then(async data => {
+                                if (data.status === 200) {
+                                    await setToken(await data.json())
+                                    await setUserLoggedIn(true)
+                                    navigate(`/homepage/${username}`)
+                                } else if (data.status === 400) {
+                                    alert.error('Oh no, something went wrong!', {timeout: 2000})
+                                }
+                              })
+                        }
+                      })
                 } else {
-                    console.log(data.message)
+                    alert.error(`${data.message}`, {timeout: 2000})
                 }
-            } else {
-                console.log('Login Failed!');
+            } else if (data === 'Username is taken!') {
+                alert.error('Oh no, your DoD ID is already in use!', {timeout: 2000})
+            }
+            else {
+                alert.error(`Login failed!`, {timeout: 2000})
             }
         } catch (error) {
-            console.log('Error occured during login:', error);
+            
+            alert.error(`Error occured during login:', ${error}`, {timeout: 2000})
         }
     };
 

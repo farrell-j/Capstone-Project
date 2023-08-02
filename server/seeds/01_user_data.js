@@ -16,20 +16,23 @@ exports.seed = async function(knex) {
       email: 'jon.arbuckle@spaceforce.mil', 
       organization: 'SPACECOM', 
       password: bcrypt.hashSync('authorized', 10), 
-      moderator: true},
+      moderator: true,
+      isBanned: false},
     {DoD_id: '2134567890', 
       firstname: 'Charlie', 
       lastname: 'Brown', 
       email: 'charlie.brown@spaceforce.mil', 
       organization: 'NRO', 
       password: bcrypt.hashSync('operations', 10), 
-      moderator: false},
+      moderator: false,
+      isBanned: false},
     {DoD_id: '3124567890', 
       firstname: 'Christopher', 
       lastname: 'Robin', 
       email: 'christoper.robin@spaceforce.mil', 
       organization: 'NGA', 
       password: bcrypt.hashSync('collection', 10), 
-      moderator: false}
+      moderator: false,
+      isBanned: false}
   ]);
 };

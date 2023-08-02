@@ -8,8 +8,27 @@
     border-radius: 1rem;
 }
 
+#deleteBtn {
+    margin-right: 2rem;
+    height: 2rem;
+    width: 5rem;
+    padding: 0;
+}
+
+#deleteBtn:hover {
+    color: darkred;
+    border-color: darkred;
+}
+
 Main {
     overflow: hidden;
+}
+
+#slistwrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #displaySearchContainer {
@@ -44,6 +63,7 @@ Main {
     justify-content: space-evenly;
     margin: 1rem;
     margin-left: 2rem;
+    width: 40rem;
 }
 
 .satCon:hover {

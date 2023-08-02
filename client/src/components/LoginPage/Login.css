@@ -51,7 +51,7 @@
     border-radius: 10px;
   }
   
-  button {
+  #loginButton {
     border: solid;
     border-color: #D1D4C9;
     border-width: 5px;
@@ -105,7 +105,7 @@
     transition: opacity .50s linear;
   }
 
-  h1 {
+  .login1 {
     background-color: #29435C;
     color:#D1D4C9;
     margin: 10px;

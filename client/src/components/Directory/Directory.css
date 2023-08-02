@@ -1,0 +1,44 @@
+#Directory-page{
+    border: none;
+    color: #152A38;
+    background-color: none;
+    padding:100px;
+    /* border-bottom: solid;
+    border-width: 5px;
+    border-color: none; */
+    background-color: none;
+    font-size:large;
+}
+.direct_title {
+  background-color: none;
+  font-size: 75px;
+}
+
+table {
+    background-color: #29435C;
+    color:#D1D4C9;
+    margin: 10px;
+    border-radius: 25px 250px 25px 250px;
+
+  }
+
+  th, td {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table {
+    /* background-color: #29435C; */
+    color:#D1D4C9;
+    margin: 10px;
+  }
+
+  #table {
+    border: solid;
+    /* color: #D1D4C9;
+    background-color: #29435C; */
+    padding:100px;
+    border-bottom: solid;
+    border-width: 5px;
+    border-color: #152A38;
+    font-size:large;
+}

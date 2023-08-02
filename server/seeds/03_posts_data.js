@@ -14,7 +14,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: true,
       contested_comment: 'It was launched on November 20th, 1998',
-      contested_by: 'Random Stranger',
+      contested_by: 'Tom Riddle'
     },
     {
       SATCAT_id: '25533', 
@@ -24,6 +24,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
+      contested_by: ''
       contested_by: '',
     },
     {
@@ -34,7 +35,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '44914', 
@@ -44,7 +45,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '49141', 
@@ -54,7 +55,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '53087', 
@@ -64,7 +65,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '54869', 
@@ -74,7 +75,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '55269', 
@@ -84,7 +85,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '56358', 
@@ -94,7 +95,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '57300', 
@@ -104,7 +105,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: true,
       contested_comment: 'This is actually Starlink-30236.',
-      contested_by: 'Elon Musk',
+      contested_by: 'Voldemort Badguy'
     },
     {
       SATCAT_id: '24907', 
@@ -114,7 +115,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '43013', 
@@ -124,7 +125,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '43226', 
@@ -134,7 +135,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '57166', 
@@ -144,7 +145,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '48859', 
@@ -154,7 +155,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '43567', 
@@ -164,7 +165,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '42939', 
@@ -174,7 +175,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     },
     {
       SATCAT_id: '56564', 
@@ -184,7 +185,7 @@ exports.seed = async function(knex) {
       down_votes: 0,
       contested: false,
       contested_comment: '',
-      contested_by: '',
+      contested_by: ''
     }
     ]);
 };

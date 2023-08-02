@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import Register from '../Register/Register.js';
 import { TokenContext } from "../../App";
 import Dancing from '../Dancing_Monkey/Dancing.js';
+import { useAlert } from 'react-alert'
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -14,6 +15,7 @@ export const LoginPage =  (props) => {
     const [pass, setPass] = useState('');
     const navigate = useNavigate();
     const {setToken, setUserLoggedIn} = useContext(TokenContext)
+    const alert = useAlert()
 
     const handleSubmit = async (e) => {
 
@@ -35,10 +37,13 @@ export const LoginPage =  (props) => {
         if (response.ok) {
             const data = await response.json();
             if (data.accessToken) {
-                // navigate('/');
-                setToken(data);
-                setUserLoggedIn(true);
-                navigate(`/homepage/${data.DoD_id}`)
+                if(data.isBanned) {
+                    alert.error(`Oh no, you've been banned!`, {timeout: 2000})
+                } else {
+                    setToken(data);
+                    setUserLoggedIn(true);
+                    navigate(`/homepage/${data.DoD_id}`)
+                }
             } else {
                 alertFunction('Sign in failed, wrong Login information input')
                 console.log('FAILED!!');
@@ -62,7 +67,7 @@ export const LoginPage =  (props) => {
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="auth-form-continer">
             
-            <h1> One Track Satellite<br></br>Space Monkeys Login Here!</h1>
+            <h1 id='login1'> One Track Satellite<br></br>Space Monkeys Login Here!</h1>
             <br></br>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label  htmlFor="DoD_id"><strong>DoD ID</strong></label>
@@ -83,7 +88,7 @@ export const LoginPage =  (props) => {
                         id="password"
                         name="password"
                     />
-                    <button type="submit"><strong>Login</strong></button>
+                    <button id="loginButton" type="submit"><strong>Login</strong></button>
                     </form>
                     <br></br>
                     <br></br>

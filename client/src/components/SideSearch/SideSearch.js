@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState, useContext } from "react"
 import './SideSearch.css'
 import styled from 'styled-components'
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { TokenContext } from "../../App"
+import Trending from '../Trending/Trending';
 
 const SideSearch = () => {
     const [searchTerm, setSearchTerm]  = useState('');
     const [satlist, setSatlist] = useState([]);
     const navigate = useNavigate();
+    const { token } = useContext(TokenContext);
 
 
     useEffect(() => {
@@ -29,13 +32,18 @@ const SideSearch = () => {
                 }}/>
                 <div id="displaySearchContainer">
                     {satlist.map(satellite => {
-                        return <div className="satCon" key={satellite.SATCAT} onClick={()=>{
+                        return <div key={satellite.SATCAT} id="slistwrap"><div className="satCon" onClick={()=>{
                             navigate(`/satellite/${satellite.SATCAT}`)
                         }}>
                             <p>SATCAT: {satellite.SATCAT}</p>
                             <p>Created By: {satellite.created_by_id}</p>
                             <p>Launch Year: {satellite.launch_date}</p>
                         </div>
+                        {token.moderator ? <button id="deleteBtn" onClick={()=>{
+                            fetch(`http://localhost:8080/satellite/${satellite.SATCAT}`, {method: 'DELETE'})
+                                .then(res => res.json())
+                                .then(data => setSatlist(data))
+                        }}>Delete</button> : <></>}</div>
                     })}
                 </div>
             </div>

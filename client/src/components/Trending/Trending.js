@@ -1,10 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react'
 import './Trending.css'
+import { useNavigate } from 'react-router-dom'
 
 const Trending = ({satlist}) => {
     const didMount = useRef(false);
     const [curIndex, setCurIndex] = useState(0);
     const [activeEvent, setActiveEvent] = useState([]);
+    const navigate = useNavigate()
     
     useEffect(() => {
         satlist.sort((a, b) => b.up_votes - a.up_votes)
@@ -39,7 +41,9 @@ const Trending = ({satlist}) => {
                         setCurIndex(4)
                     }
                 }}>Previous</button>
-                    <div id='satItem'>
+                    <div onClick={()=>{
+                        navigate(`/satellite/${activeEvent.SATCAT}`)
+                    }} id='satItem'>
                         <p>SATCAT: {activeEvent.SATCAT}</p>
                         <p>Launch Date: {activeEvent.launch_date}</p>
                         <p>Up Votes: {activeEvent.up_votes}</p>
