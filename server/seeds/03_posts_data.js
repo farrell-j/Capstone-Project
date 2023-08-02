@@ -25,7 +25,6 @@ exports.seed = async function(knex) {
       contested: false,
       contested_comment: '',
       contested_by: ''
-      contested_by: '',
     },
     {
       SATCAT_id: '44713', 
