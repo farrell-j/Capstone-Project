@@ -22,8 +22,7 @@ function Navbar() {
         </button>
       </div>
       <div className="links">
-        <Link to="/"> Home </Link>
-        <Link to="/settings"> Settings </Link>
+        <Link to="/"> Mystery Button </Link>
       </div>
     </div>
   );

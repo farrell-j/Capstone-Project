@@ -1,15 +1,26 @@
 import React from "react";
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Link} from 'react-router-dom';
 import './Resources_Link.css'
+import rocket_ship_log_out_img from '../../images/rocket_ship.svg';
+import { Tooltip } from 'react-tooltip';
 
 const Resources_Link = () => {
     return (
 
-        <div className='resources_banner_container'>
-                <div id= "resources"> 
-                    <h1>Resources</h1>
+        <div className='resources_banner_container'>                            
+                <div id= "resources">
+                    <Link to="/faq" className='navButton hover-effect'>
+                        <img
+                            data-tooltip-id="tletip"
+                            data-tooltip-content="Return" 
+                            id='rocket_return' 
+                            src={rocket_ship_log_out_img} 
+                            alt="Return to Resources" 
+                        />
+                    </Link> 
+                    <h1>Resources: Home</h1>
                     <div>
-                        <h2>Where can I aquire tools... </h2>
+                        {/* <h2>Where can I aquire tools... </h2> */}
                             <div id='resource_links'>
                                 <p>Open Source Sat Tracking Tools:</p>
                                 {/* <p>Links - </p> */}
@@ -29,6 +40,7 @@ const Resources_Link = () => {
                                 <p><a href='https://astronomy.starrynight.com/' target='_blank' rel='noopener noreferrer'>Starry Night</a></p>
                                 <p><a href='http://f6dqm.free.fr/soft/satex/en/satexplorer.htm' target='_blank' rel='noopener noreferrer'>SAT Explorer</a></p>
                             </div>
+                            <Tooltip id="tletip" place="bottom" content="TLE Data Tool" />
                     </div>
                 </div>
         </div>

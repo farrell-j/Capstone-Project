@@ -17,7 +17,7 @@ exports.seed = async function(knex) {
       organization: 'SPACECOM', 
       password: bcrypt.hashSync('authorized', 10), 
       moderator: true,
-      banned: false},
+      isBanned: false},
     {DoD_id: '2134567890', 
       firstname: 'Charlie', 
       lastname: 'Brown', 
@@ -25,7 +25,7 @@ exports.seed = async function(knex) {
       organization: 'NRO', 
       password: bcrypt.hashSync('operations', 10), 
       moderator: false,
-      banned: false},
+      isBanned: false},
     {DoD_id: '3124567890', 
       firstname: 'Christopher', 
       lastname: 'Robin', 
@@ -33,6 +33,6 @@ exports.seed = async function(knex) {
       organization: 'NGA', 
       password: bcrypt.hashSync('collection', 10), 
       moderator: false,
-      banned: false}
+      isBanned: false}
   ]);
 };

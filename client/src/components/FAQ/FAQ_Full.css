@@ -11,31 +11,40 @@
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 5%; */
-    flex: 0 0 calc(33.33% - 2%); /* Divide the width equally among the columns with some spacing */
+    flex: 0 0 calc(48% - 2%); /* Divide the width equally among the columns with some spacing */
     margin: 1%; /* Add some margin to create spacing between the columns */
     /* background-color: blue; */
-}
-.faq_banner_container {
-    /* margin-top: 5%;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-bottom: 5%; */
-    flex: 0 0 calc(33.33% - 2%); /* Divide the width equally among the columns with some spacing */
-    margin: 1%; /* Add some margin to create spacing between the columns */
-    /* background-color: red */
 }
 .learn_banner_container {
     /* margin-top: 5%;
     margin-left: 30%;
     margin-right: 30%;
     margin-bottom: 5%; */
-    flex: 0 0 calc(33.33% - 2%); /* Divide the width equally among the columns with some spacing */
+    flex: 0 0 calc(48% - 2%); /* Divide the width equally among the columns with some spacing */
     margin: 1%; /* Add some margin to create spacing between the columns */
     /* background-color: blue; */
 }
+
+/* Both Elements */
+#p_title {
+    color: #556E53;
+    font-weight: bold;
+}
+#faq_h1 {
+    background-color: #29435C;
+    color:#D1D4C9;
+    margin: 5%;
+    border-radius: 20%;
+}
+/* Both Elements */
+
 #resources {
+    height: 95%;
+    /* border: #D1D4C9; */
     /* margin-top: 10%; */
-    /* background-color: #29435C; */
+    background-color: #29435C;
+    /* Translucent #29435C with 50% (.5) op */
+    background-color: rgba(41, 67, 92, 0.5); 
     padding: 5%;
     border-bottom: solid;
     border-width: 25%;
@@ -62,51 +71,25 @@
     /* text-decoration: none;  */
     display: block; 
     padding: 5px 0; 
-}
-  
+} 
 #resource_links a:hover {
     color: #556E53; 
     background-color: #29435C; 
-}
-#faq {
-    /* margin-top: 10%; */
-    /* background-color: #29435C; */
-    padding: 5%;
-    border-bottom: solid;
-    border-width: 25%;
-    border-color: #D1D4C9;
-    /* border-radius: 41%; */
-}
-#faq h1 a {
-    text-decoration: none; 
-    color: #D1D4C9; 
-} 
-#faq h1 a:hover {
-    color: #556E53; 
-}
-#faq_links {
-    margin-top: 3%;
-    margin-left: 2%;
-    margin-right: 2%;
-    overflow: auto;
-    text-align: left;
-    /* background-color: black; */
-}
-#faq_links a {
+}  
+#resource_links a {
     color: #D1D4C9; 
     /* text-decoration: none;  */
     display: block; 
     padding: 5px 0; 
 }
-  
-#resource_links a:hover {
-    color: #556E53; 
-    background-color: #29435C; 
-}
 #learn {
+    height: 95%;
     /* margin-top: 10%; */
-    /* background-color: #29435C; */
+    background-color: #29435C;
+    /* Translucent #29435C with 50% (.5) op */
+    background-color: rgba(41, 67, 92, 0.5); 
     padding: 5%;
+    /* padding-bottom: 93%; */
     border-bottom: solid;
     border-width: 25%;
     border-color: #D1D4C9;
@@ -127,14 +110,21 @@
     text-align: left;
     /* background-color: black; */
 }
-#resource_links a {
+#learn_links a {
+    color: #D1D4C9; 
+    /* text-decoration: none;  */
+    display: block; 
+    padding: 5px 0; 
+} 
+#learn_links a:hover {
+    color: #556E53; 
+    background-color: #29435C; 
+}  
+#learn_links a {
     color: #D1D4C9; 
     /* text-decoration: none;  */
     display: block; 
     padding: 5px 0; 
 }
+
   
-#faq_links a:hover {
-    color: #556E53; 
-    background-color: #29435C; 
-}

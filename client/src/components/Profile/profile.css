@@ -1,0 +1,93 @@
+.profile {
+    background-color: #29435C;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    outline: 5px;
+    width: 60rem;
+    margin-top: 2rem;
+}
+
+.Navbar {
+    background-color: #152A38;
+    overflow: hidden;
+    border-radius: 25px;
+}
+
+.prompt {
+    background-color: #556E53;
+    color: white;  
+}
+
+.contactinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin: 1rem;
+    height: 20rem;
+    padding-left: 1rem;
+}
+
+.contactinfo p {
+    height: 2rem;
+    margin: 0;
+}
+
+.contactinfo h1 {
+    height: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contactinfo span {
+    margin: 1rem;
+    color: #19ee0a;
+    font-weight: bold;
+}
+
+.contactinfo input {
+    margin: 0;
+    padding: 0;
+    padding-left: 1rem;
+    background-color: #29435C;
+    border-style: solid;
+    width: 10rem;
+    color: #D1D4C9;
+    height: 1rem;
+}
+
+#button31 {
+    align-self: end;
+    padding: 0.25rem;
+    background-color: #29435C;
+    border-style: none;
+    color: #D1D4C9;
+    font-size: large;
+}
+
+#button31:hover {
+    cursor: pointer;
+    color: #19ee0a;
+    border-style: solid;
+    border-color: #19ee0a;
+}
+
+.userPost {
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-style: solid;
+    border-radius: 1rem;
+    margin: 0.5rem;
+}
+
+.userPost:hover {
+    cursor: pointer;
+    color: #19ee0a;
+}
+
+.userPost p {
+    margin: 0;
+    padding: 0.25rem;
+}

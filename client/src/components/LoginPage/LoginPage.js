@@ -37,7 +37,7 @@ export const LoginPage =  (props) => {
         if (response.ok) {
             const data = await response.json();
             if (data.accessToken) {
-                if(data.banned) {
+                if(data.isBanned) {
                     alert.error(`Oh no, you've been banned!`, {timeout: 2000})
                 } else {
                     setToken(data);
@@ -67,7 +67,7 @@ export const LoginPage =  (props) => {
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="auth-form-continer">
             
-            <h1> One Track Satellite<br></br>Space Monkeys Login Here!</h1>
+            <h1 id='login1'> One Track Satellite<br></br>Space Monkeys Login Here!</h1>
             <br></br>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label  htmlFor="DoD_id"><strong>DoD ID</strong></label>
@@ -88,7 +88,7 @@ export const LoginPage =  (props) => {
                         id="password"
                         name="password"
                     />
-                    <button type="submit"><strong>Login</strong></button>
+                    <button id="loginButton" type="submit"><strong>Login</strong></button>
                     </form>
                     <br></br>
                     <br></br>

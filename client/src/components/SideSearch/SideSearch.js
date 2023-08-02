@@ -1,14 +1,15 @@
-import React, {useEffect, useState, useContext} from "react"
+import React, { useEffect, useState, useContext } from "react"
 import './SideSearch.css'
 import styled from 'styled-components'
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { TokenContext } from "../../App"
+import Trending from '../Trending/Trending';
 
 const SideSearch = () => {
     const [searchTerm, setSearchTerm]  = useState('');
     const [satlist, setSatlist] = useState([]);
     const navigate = useNavigate();
-    const {token} = useContext(TokenContext);
+    const { token } = useContext(TokenContext);
 
 
     useEffect(() => {

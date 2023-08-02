@@ -24,8 +24,8 @@ const Directory = () => {
     }, []);
 
     return (
-        <div id="Directory">
-            <h1>User Directory</h1>
+        <div id="Directory_page">
+            <h1 className="direct_title">User Directory</h1>
             <table id="table">
                 <thead>
                     <tr>
