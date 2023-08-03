@@ -11,7 +11,6 @@ exports.up = function(knex) {
     table.string('organization');
     table.string('password');
     table.boolean('moderator').defaultTo(false);
-    table.boolean('isBanned').defaultTo(false);
   })
 };
 

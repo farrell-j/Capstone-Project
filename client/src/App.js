@@ -3,23 +3,9 @@ import React, {useState} from 'react';
 import LoginPage from './components/LoginPage/LoginPage';
 import Navbar from './components/NavBar/NavBar.js';
 import {Routes, Route} from 'react-router-dom';
-import Register from './components/Register/Register.js';
-import SideSearch from './components/SideSearch/SideSearch.js';
-import Fetch_TLE from './components/Fetch_TLE/Fetch_TLE.js'
-import HomePage from './components/Homepage/Homepage.js'
-import Track_Tool from './components/Track_Tool/Track_Tool';
-import SatelliteDetails from './components/SatelliteDetails/SatelliteDetails';
-import Trending from './components/Trending/Trending';
-import AddSat from './components/AddSat/AddSat'
-import FAQ_Full from './components/FAQ/FAQ_Full';
-import Dancing from './components/Dancing_Monkey/Dancing.js';
-import Profile from './components/Profile/Profile.js'
-import Directory from './components/Directory/Directory.js';
-import Resources_Link from './components/FAQ/Resources_Link.js'
-import FAQ_Link from './components/FAQ/FAQ_Link.js'
-import Learn_Link from './components/FAQ/Learn_Link.js'
+import Register from './components/Register/Register';
+import SideSearch from './components/SideSearch/SideSearch';
 // import login_background from '../images/STARS_background_for_homepage.svg';
-import ModeratorPage from './components/Moderator/Moderator.js'
 
 
 export const TokenContext = React.createContext()
@@ -32,25 +18,12 @@ function App() {
         <header className="App-header">
           <Navbar/>
         </header>
-         <Dancing/>
         <div className='App'>
           <Routes>
             <Route path='/' element={<LoginPage/>}/>
             <Route path='/login' element={<LoginPage/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route path='/test' element={<Trending/>}/>
-            <Route path='/TLE' element={<Fetch_TLE />}/>
-            {/* <Route path='/track' element={<Track_Tool />} /> */}
-            <Route path='/homepage/:DoD_id' element={<HomePage />}/>
-            <Route path='/satellite/:SATCAT' element={<SatelliteDetails/>} />
-            <Route path='/addsat' element={<AddSat/>} />
-            <Route path='/directory' element={<Directory/>} />
-            <Route path='/profile/:userid' element={<Profile/>} />
-            <Route path='/faq' element={<FAQ_Full/>} />
-            <Route path='/resources_link' element={<Resources_Link />} />
-            <Route path='/faq_link' element={<FAQ_Link />} />
-            <Route path='/learn_link' element={<Learn_Link />} />
-            <Route path='/moderator/:DoD_id' element={<ModeratorPage />} />
+            <Route path='/test' element={<SideSearch/>}/>
           </Routes>
         </div>
     </TokenContext.Provider>

@@ -1,12 +1,9 @@
 // import Register  from "../Register/Register.js";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {useNavigate, Link } from "react-router-dom";
 import './Login.css';
 import LoginForm from './LoginForm';
 import Register from '../Register/Register.js';
-import { TokenContext } from "../../App";
-import Dancing from '../Dancing_Monkey/Dancing.js';
-import { useAlert } from 'react-alert'
 // import login_background from '../images/STARS_background_for_homepage.svg';
 
 
@@ -14,8 +11,6 @@ export const LoginPage =  (props) => {
     const [username, setUsername] = useState ('');
     const [pass, setPass] = useState('');
     const navigate = useNavigate();
-    const {setToken, setUserLoggedIn} = useContext(TokenContext)
-    const alert = useAlert()
 
     const handleSubmit = async (e) => {
 
@@ -29,21 +24,18 @@ export const LoginPage =  (props) => {
                     'Content-Type': 'application/json',
                 },
             body: JSON.stringify({
-                "DoD_id": username,
+                // "DoD_id": BigInt(username),
                 "password": pass
             }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            if (data.accessToken) {
-                if(data.isBanned) {
-                    alert.error(`Oh no, you've been banned!`, {timeout: 2000})
-                } else {
-                    setToken(data);
-                    setUserLoggedIn(true);
-                    navigate(`/homepage/${data.DoD_id}`)
-                }
+            if (data.success) {
+                navigate('/resources');
+                console.log(data)
+                sessionStorage.setItem('userI', JSON.stringify(data.user_id)); 
+                sessionStorage.setItem('username', JSON.stringify(data.username));
             } else {
                 alertFunction('Sign in failed, wrong Login information input')
                 console.log('FAILED!!');
@@ -55,31 +47,27 @@ export const LoginPage =  (props) => {
     } catch (error) {
       console.log('error occured during login:', error);
     }
-    };
+   };
 
    return (
-
-    <div id='login_body'>
-
-    
-
+    <>
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="alert alert-danger alert-dismissible fade show" role="alert"></div>
         <div className="auth-form-continer">
             
-            <h1 id='login1'> One Track Satellite<br></br>Space Monkeys Login Here!</h1>
-            <br></br>
+            <h1> One Track Satellite</h1>
+            <h2>Space Monkeys Login Here!</h2>
             <form className="login-form" onSubmit={handleSubmit}>
-                <label  htmlFor="DoD_id"><strong>DoD ID</strong></label>
+                <label htmlFor="username">Username</label>
                 <input 
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    type="DoD ID"
-                    placeholder="DoD ID"
-                    id="DoD ID"
-                    name="DoD ID"
+                    type="username"
+                    placeholder="Username"
+                    id="username"
+                    name="username"
                     />
-                    <label htmlFor="password"><strong>Password</strong></label>
+                    <label htmlFor="password">Password</label>
                     <input 
                         value={pass}
                         onChange={(e) => setPass(e.target.value)}
@@ -88,16 +76,25 @@ export const LoginPage =  (props) => {
                         id="password"
                         name="password"
                     />
-                    <button id="loginButton" type="submit"><strong>Login</strong></button>
+                    <button onClick={()=>{
+                        fetch('http://localhost:8080/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                "DoD_id": parseInt(username),
+                                "password": pass
+                            }),
+                        }).then(res=>console.log(res))
+                    }}>Login</button>
                     </form>
-                    <br></br>
-                    <br></br>
-                    <Link to="/Register" className="Link-1"><strong>Need to register an account? Click here!</strong></Link>
+                    <Link to="/Register" className="Link-1">Need to register an account? Click here!</Link>
                     {/* <button className="Link-btn" onClick={() => props.onFormSwitch.toggleForm('Register')}>
                         Need an account? Click here!
                     </button> */}
         </div>
-    </div>
+    </>
 
     );
 };
