@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Directory.css"
+import {useNavigate } from "react-router-dom";
 
 const Directory = () => {
     const [users, setUsers] = useState([]);
+    const navigate = useNavigate()
 
     const fetchUsers = async () => {
         try {
@@ -39,7 +41,9 @@ const Directory = () => {
                 </thead>
                 <tbody>
                     {users.map(user => (
-                        <tr key={user.DoD_id}>
+                        <tr onClick={()=>{
+                            navigate(`/profile/${user.DoD_id}`)
+                        }} key={user.DoD_id}>
                             <td>{user.DoD_id}</td>
                             <td>{user.firstname}</td>
                             <td>{user.lastname}</td>

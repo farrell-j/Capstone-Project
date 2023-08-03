@@ -32,7 +32,6 @@ export const Profile = () => {
         return (
             <>
                 <div className='profile'>
-                    <Navbar />
                     <header img src= { monkey_no_background_img }></header>
                     <div className='contactinfo'>
                         <h1> Contact Info:</h1>
@@ -85,7 +84,6 @@ export const Profile = () => {
         return (
             <>
                 <div className='profile'>
-                    <Navbar />
                     <header img src= { monkey_no_background_img }></header>
                     <div className='contactinfo'>
                         <h1> Contact Info:</h1>

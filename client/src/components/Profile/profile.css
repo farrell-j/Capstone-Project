@@ -67,9 +67,9 @@
 
 #button31:hover {
     cursor: pointer;
-    color: #19ee0a;
+    color: #556E53;
     border-style: solid;
-    border-color: #19ee0a;
+    border-color: #556E53;
 }
 
 .userPost {
@@ -84,7 +84,7 @@
 
 .userPost:hover {
     cursor: pointer;
-    color: #19ee0a;
+    color: #556E53;
 }
 
 .userPost p {

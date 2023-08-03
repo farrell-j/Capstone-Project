@@ -38,18 +38,20 @@
 }
 
 #trendCon button {
-  border-style: solid;
+  border-style: none;
   padding: 0;
   margin: 1rem;
   text-align: center;
-  background-color: #29435C;
+  background-color: transparent;
   color: #D1D4C9;
   width: 5rem;
   height: 2rem;
+  font-size: 1rem;
 }
 
 #trendCon button:hover {
   color: #556E53;
+  cursor: pointer;
 }
 
 #highlightContainer span {

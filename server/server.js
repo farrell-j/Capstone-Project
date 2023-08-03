@@ -211,6 +211,15 @@ app.get('/search/', (req,res) => {
         .then(data => res.status(200).send(data));
   })
 
+//get all contested posts
+
+app.get('/contestedposts', (req, res) => {
+    knex('posts')
+        .select('*')
+        .where('contested', true)
+        .then(data => res.status(200).json(data))
+})
+
 // 
 //  POST REQUESTS BELOW
 // 
@@ -361,13 +370,20 @@ app.patch('/post/:id', (req, res) => {
 //patch req to handle contesting information
 app.patch('/contestpost/:post_id', (req, res) => {
     const postID = req.params.post_id;
-    const { contested, contested_comment, contested_by } = req.body;
+    console.log(postID)
+    const { contested, contested_comment, contested_by, post_text } = req.body;
+
+    const updateInfo = { contested, contested_comment, contested_by }
+
+    if(post_text !== undefined) {
+        updateInfo.post_text = post_text;
+    }
 
     knex('posts')
         .where('post_id', postID)
-        .update({ contested, contested_comment, contested_by })
+        .update(updateInfo)
         .then(data => {
-            res.status(200).json('Contested Status updated!')
+            res.status(200).json(data)
         })
         .catch(err => { res.status(500).json('Issue with patching contested info')})
 })

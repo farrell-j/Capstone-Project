@@ -249,6 +249,7 @@ function SatelliteDetails () {
                     </PostDetails>
                     <PostText dangerouslySetInnerHTML={{ __html: post.post_text }}></PostText>
                     <PostVotes>
+                    {token.DoD_id === post.post_author ?  <button onClick={() => {deletePost(post.post_id)}}>Delete</button> :null}
                         <ThumbUpIcon onClick={() =>  handleVote('upvote', post.post_id, post.up_votes)}/> <p>{post.up_votes}</p>
                         <ThumbDownIcon onClick={() =>  handleVote('downvote', post.post_id, post.down_votes)}/> <p>{post.down_votes}</p>
                     </PostVotes>
@@ -269,6 +270,9 @@ function SatelliteDetails () {
                       updatedMessages[index] = e.target.value;
                       setContestMessages(updatedMessages);
                     }}
+                    multiline={true}
+                    rows={4}
+                   
                   />
                 </DialogContent>
                 <DialogActions>
@@ -315,6 +319,7 @@ function SatelliteDetails () {
                     </PostDetails>
                     <PostText dangerouslySetInnerHTML={{ __html: post.post_text }}></PostText>
                     <PostVotes>
+                      {token.DoD_id === post.post_author ?  <button onClick={() => {deletePost(post.post_id)}}>Delete</button> :null}
                         <ThumbUpIcon onClick={() =>  handleVote('upvote', post.post_id, post.up_votes)}/> <p>{post.up_votes}</p>
                         <ThumbDownIcon onClick={() =>  handleVote('downvote', post.post_id, post.down_votes)}/> <p>{post.down_votes}</p>
                     </PostVotes>
@@ -336,6 +341,9 @@ function SatelliteDetails () {
                       updatedMessages[index] = e.target.value;
                       setContestMessages(updatedMessages);
                     }}
+                    multiline={true}
+                    rows={4}
+                    
                   />
                 </DialogContent>
                 <DialogActions>
@@ -403,6 +411,9 @@ function SatelliteDetails () {
                       updatedMessages[index] = e.target.value;
                       setContestMessages(updatedMessages);
                     }}
+                    multiline={true}
+                    rows={4}
+                    
                   />
                 </DialogContent>
                 <DialogActions>

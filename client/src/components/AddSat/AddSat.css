@@ -1,10 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100");
 
 .auth-form-container {
+    margin-top: 2rem;
     align-items: center;
-    background-color: none;
+    background-color: #29435C;
     display: flex;
     justify-content: center;
+    height: 45rem;
+}
+
+.auth-form-container input:focus {
+    outline: solid;
+    outline-color: #D1D4C9;
 }
 
 .AddSatTitle{
@@ -16,12 +23,12 @@
 }
 
 .AddSatForm {
-background-color: none;
-border-radius: 20px;
-box-sizing: border-box;
-height: 1000px;
-padding: 20px;
-width: 400px;
+    background-color: none;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: 1000px;
+    padding: 20px;
+    width: 400px;
 }
 
 .satcat {

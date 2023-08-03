@@ -5,6 +5,7 @@ import SideSearch from '../SideSearch/SideSearch.js';
 import Trending from '../Trending/Trending';
 import { TokenContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import Space_Monkey from '../../images/Space_Monkey_No_Background.svg';
 
 const HomePage = () => {
     const [satlist, setSatlist] = useState([]);
@@ -43,6 +44,8 @@ const HomePage = () => {
             <Trending satlist={satlist}/>
         </div>
       )
+    } else {
+      return <img id="monkeyspin" src={Space_Monkey} alt="Loading..." width="350rem"/>
     }
 }
 

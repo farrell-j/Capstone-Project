@@ -42,3 +42,8 @@ table {
     border-color: #152A38;
     font-size:large;
 }
+
+tr:hover {
+  color: #556E53;
+  cursor: pointer;
+}

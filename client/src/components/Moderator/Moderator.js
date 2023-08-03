@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './Moderator.css';
 
 const ModeratorPage = ({ userToken }) => {
   const [userAccounts, setUserAccounts] = useState([]);
@@ -13,7 +14,7 @@ const ModeratorPage = ({ userToken }) => {
         console.error('Error fetching user accounts:', error);
       });
 
-    fetchContestedPosts()
+      fetchContestedPosts()
       .then((data) => {
         setContestedPosts(data);
       })
@@ -38,7 +39,7 @@ const ModeratorPage = ({ userToken }) => {
 
   const fetchContestedPosts = async () => {
     try {
-      const response = await fetch('http://localhost:8080/posts');
+      const response = await fetch('http://localhost:8080/contestedposts');
       const contestedPostsData = await response.json();
       return contestedPostsData;
     } catch (error) {
@@ -76,76 +77,39 @@ const ModeratorPage = ({ userToken }) => {
     }
   };
 
-/*
-
 const contestedPostModeration = (postId, isApproved) => {
   if (isApproved ) {
-    let newPostText = contestedPosts.find(post_id === postID).contested_comment;
+    let newPostText = contestedPosts.find((postObj) => postObj.post_id === postId).contested_comment
+    fetch(`http://localhost:8080/contestpost/${postId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({contested: false, contested_comment: "", contested_by: "", post_text: newPostText})
+    })
+    .then(res => res.json())
+    .then(data => setContestedPosts(data))
+    .catch(err => console.log(err))
+  } 
+  else if (!isApproved) {
+    fetch(`http://localhost:8080/contestpost/${postId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({contested: false, contested_comment: "", contested_by: ""})
+    })
+    .then(res => res.json())
+    .then(data => setContestedPosts(data))
+    .catch(err => console.log(err))
   }
-}
+  }
 
-
-*/
-
-  const contestedPostModeration = async (satcatId, isApproved) => {
-    try {
-      await updateContestedPostApproval(satcatId, isApproved, userToken);
-  
-      const postToSave = contestedPosts.find((post) => post.SATCAT_id === satcatId);
-      if (isApproved) {
-        const updatedPostText = `${postToSave.post_text} ${postToSave.contested_comment}`;
-        postToSave.post_text = updatedPostText
-        postToSave.contested_comment = '';
-
-        await fetch(`http://localhost:8080/post/${satcatId}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify({
-            contested: false,
-            post_text: postToSave.post_text,
-            contested_comment: postToSave.contested_comment,
-          }),
-        })
-      }
-
-    //   await fetch(`http://localhost:8080/post/${satcatId}`, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${userToken}`,
-    //   },
-    //   body: JSON.stringify({ contested: false }),
-    // });
-
-      setContestedPosts((prevContestedPosts) =>
-        prevContestedPosts.filter((post) => post.SATCAT_id !== satcatId)
-      );
-    } catch (error) {
-      console.error('Error moderating contested post:', error);
-    }
-  };
-  
-  const updateContestedPostApproval = async (satcatId, isApproved, token) => {
-    try {
-      await fetch(`http://localhost:8080/post/${satcatId}`, {
-        method: 'PATCH', 
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ isApproved }),
-      });
-    } catch (error) {
-      throw new Error('Error updating contested post approval status');
-    }
-  };
 
   return (
-    <div>
-      <h2>User Accounts:</h2>
+    <div  className="UserAccounts">
+      <h2 className='UA' >User Accounts:</h2>
+      {console.log(contestedPosts)}
       {userAccounts.map((user) => (
         <div key={user.DoD_id}>
           <p>User ID: {user.DoD_id}</p>
@@ -158,10 +122,10 @@ const contestedPostModeration = (postId, isApproved) => {
         </div>
       ))}
 
-      <h2>Contested Posts:</h2>
-      {contestedPosts
-      .filter((post) => post.contested )
-      .map((post) => (
+      <h2 className='UA' >Contested Posts:</h2>
+      
+      {contestedPosts.length > 0 ? (
+      contestedPosts.map((post) => (
         <div key={post.SATCAT_id}>
           <p>SATCAT ID: {post.SATCAT_id}</p>
           <p>Post Text: {post.post_text}</p>
@@ -170,8 +134,11 @@ const contestedPostModeration = (postId, isApproved) => {
           <button onClick={() => contestedPostModeration(post.post_id, true)}>Approve</button>
           <button onClick={() => contestedPostModeration(post.post_id, false)}>Deny</button>
         </div>
-      ))}
-    </div>
+      ))
+      ) : (
+        <p>No contested posts found.</p>
+      )}
+      </div>
   );
 };
 

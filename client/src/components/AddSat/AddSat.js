@@ -5,12 +5,13 @@ import './AddSat.css'
 import Space_Monkey from '../../images/Space_Monkey_No_Background.svg';
 
 const AddSat = ({userToken, username}) => {
+    const {token} = useContext(TokenContext)
     const [satcat, setSATCAT] = useState('');
     const [createdBy, setCreatedBy] = useState(() => {
-        if(username !== undefined){
-            return username;
+        if(token !== undefined){
+            return token.DoD_id;
         } else {
-            return userToken?.DoD_id || ''; 
+            return ''; 
         }
     })
     const [launchDate, setLaunchDate] = useState('');
@@ -20,7 +21,6 @@ const AddSat = ({userToken, username}) => {
     const [argumentOfPerigee, setArgumentOfPerigee] = useState('');
     const [meanAnomaly, setMeanAnomaly] = useState('');
     const [image, setImage] = useState('');
-    const {token} = useContext(TokenContext)
 
     const navigate = useNavigate();
     
