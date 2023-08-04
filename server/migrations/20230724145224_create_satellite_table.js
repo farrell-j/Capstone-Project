@@ -4,7 +4,8 @@
  */
 exports.up = function(knex) {
     return knex.schema.createTable('satellite', table => {
-        table.integer('SATCAT').primary();
+        table.string('SATCAT').primary();
+        table.string('name');
         table.string('created_by_id').unsigned();
         table.foreign('created_by_id').references('user_accounts.DoD_id').onDelete('CASCADE');
         table.string('launch_date');

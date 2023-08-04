@@ -1,0 +1,65 @@
+.UserAccounts {
+    background-color: #29435C; 
+    border: 2px;
+    border-radius: 25px 170px 25px 170px;
+    opacity: 1;
+    height: 50%;
+    width: 50%;
+}
+
+.UA {
+    /* background-color: rgb(23, 14, 46) */
+    border-radius: 100px 100px 100px 100px;
+    /* width: 100%; */
+    text-align: center;
+    /* padding: -3rem; */
+    text-decoration: underline;
+}
+
+.approve-button {
+    margin-right: 2rem;
+    height: 2rem;
+    width: 5rem;
+    padding: 0;
+    background-color: #29435C;
+    border-style: solid;
+    color: #D1D4C9;
+    border-color: #D1D4C9;
+    border-radius: 1rem;
+}
+
+.approve-button:hover {
+    cursor: pointer;
+}
+
+.deny-button {
+    margin-right: 2rem;
+    height: 2rem;
+    width: 5rem;
+    padding: 0;
+    background-color: #29435C;
+    border-style: solid;
+    color: #D1D4C9;
+    border-color: #D1D4C9;
+    border-radius: 1rem;
+}
+
+.deny-button{
+    cursor: pointer;
+}
+
+.ban-button {
+    margin-right: 0;
+    height: 2rem;
+    width: 5.5rem;
+    padding: 0;
+    background-color: #29435C;
+    border-style: solid;
+    color: #D1D4C9;
+    border-color: #D1D4C9;
+    border-radius: 1rem;
+}
+
+.ban-button{
+    cursor: pointer;
+}

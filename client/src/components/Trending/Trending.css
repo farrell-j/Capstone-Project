@@ -1,0 +1,86 @@
+#trendCon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-style: solid;
+  background-image: url('../../images/trendCon_rocket_ship.svg');
+  background-repeat: no-repeat;
+  /* background-color: aqua; */
+  background-color: #29435C;
+  /* color: black; */
+  color: #D1D4C9;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem;
+  margin-left: 9.5rem; 
+  width: 30rem;
+  height: 5rem;
+  animation: slideIn 4s, slideOut 1s 4.75s;
+}
+
+#trendCon h1 {
+  color: #D1D4C9;
+}
+
+#satItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-style: solid;
+  background-color: #29435C;
+  color: #D1D4C9;
+  border-radius: 0.5rem;
+}
+
+#satItem:hover {
+  color: #556E53;
+  cursor: pointer;
+}
+
+#trendCon button {
+  border-style: none;
+  padding: 0;
+  margin: 1rem;
+  text-align: center;
+  background-color: transparent;
+  color: #D1D4C9;
+  width: 5rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+#trendCon button:hover {
+  color: #556E53;
+  cursor: pointer;
+}
+
+#highlightContainer span {
+  color: #C07F00;
+}
+
+#highlightContainer:hover {
+    color: coral;
+    border-color: coral;
+    cursor: pointer;
+}
+
+@keyframes slideIn {
+    0% {
+      transform: translateX(9000px);
+    }
+    30% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-9000px);
+    }
+}
